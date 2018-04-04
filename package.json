@@ -2,9 +2,9 @@
   "name": "vidnote",
   "version": "1.0.0",
   "description": "A simple video annotation app.",
-  "main": "\\",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/RamiAwar/VidNote/issues"
   },
-  "homepage": "https://github.com/RamiAwar/VidNote#readme"
+  "homepage": "https://github.com/RamiAwar/VidNote#readme",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "mousetrap": "^1.6.1"
+  },
+  "devDependencies": {
+    "electron": "^1.8.4",
+    "electron-reload": "^1.2.2"
+  }
 }

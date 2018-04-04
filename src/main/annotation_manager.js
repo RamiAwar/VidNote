@@ -21,7 +21,7 @@ exports.create_window = () => {
 
 	// Load main window content
 	this.window.loadURL(url.format({
-		pathname: path.join(__dirname, 'gui/main_window/main_window.html'),
+		pathname: path.join(__dirname, '/annotation_window.html'),
 		protocol: 'file:'
 	}));
 

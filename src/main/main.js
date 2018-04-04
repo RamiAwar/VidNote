@@ -3,17 +3,17 @@ DEV = true;
 
 // ----- Modules ----- 
 const {app, ipcMain} = require('electron');
-const main_window = require('./main_window');
+const main_window = require('./gui/main_window/main_window');
 // const read_item = require('./read_item')
 
 // Electron reload enabled for development use only
 if(DEV){
   require('electron-reload')(__dirname,{
-      electron: require(`${__dirname}/../node_modules/electron`)
+      electron: require(`${__dirname}/node_modules/electron`)
   });
 }
 
-خ
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
