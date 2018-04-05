@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Annotation Creator</title>
+    <link rel="stylesheet" href="../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="main_window.css">
+
+  </head>
+  <body>
+    
+    
+    <div class="container">
+      
+      <h1>Hello there</h1>
+
+      <form onsubmit="save_annotation()">
+        
+        <textarea id="annotation_text">Annotation text</textarea>
+
+        <button type="submit">Save</button>  
+      </form>
+
+    </div>
+
+
+
+    <script>
+      
+      $ = require('jquery');
+
+      require('../scripts/annotation_handler.js');
+
+    </script>
+  </body>
+</html>

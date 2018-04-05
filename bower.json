@@ -1,0 +1,21 @@
+{
+  "name": "vidnote",
+  "description": "A simple video annotation app.",
+  "main": "launcher.js",
+  "authors": [
+    "Rami Awar"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/RamiAwar/VidNote",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap4": "^4.0.0",
+    "components-font-awesome": "^5.0.6"
+  }
+}
