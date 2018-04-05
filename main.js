@@ -18,7 +18,7 @@ if(DEV){
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', ()=>{
-  main_window.create_window(500,300,350,200,650,300);
+  main_window.create_window(600,450,350,450,650,450);
 });
 
 // Listen for new item

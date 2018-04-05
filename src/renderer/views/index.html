@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <meta charset="UTF-8">
     <title>VidNote</title>
-    <link rel="stylesheet" href="../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="main_window.css">
+    <link rel="stylesheet" href="../../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/index.css">
 
   </head>
   <body>
     
     
     <div class="container">
-      
-      <h1>Hello there</h1>
 
-      <video src="../../assets/videos/test.mp4" width="500px" controls>
+      <div class="row">
+        <h1>Hello there</h1>
+      </div>
+
+      <video src="../../static/videos/test.mp4" width="500px" controls>
       </video>
 
-      <button onclick="annotate()">Annotate Here</button>
+      <div class="row">
+        <button class="btn btn-primary" onclick="annotate()">Annotate Here</button>
+      </div>
 
-      <script>
+     <!--  <script>
         
         let vid = document.querySelector("video");
         console.log(vid.currentTime);
-        vid.currentTime = 30;
+        vid.currentTime = 20;
 
         // vid.addEventListener("seeked", ()=>{
         //     vid.play(); 
@@ -36,42 +41,33 @@
         }
 
         // EVT_RECEIVED: New item successfully fetched
-        ipcRenderer.on('new_item_ready', (e, new_item) =>{
+          // ipcRenderer.on('new_item_ready', (e, new_item) =>{
 
-          close_modal_disabled = false;
+          //   close_modal_disabled = false;
 
-          if(new_item === "error"){
+          //   if(new_item === "error"){
 
-            // Add danger component to input class
-            $('#item-input').addClass('is-danger');
-            $('#url_error').removeClass('is-invisible');
-            
-          }else{
-            // New item fetched successfully
-            // Add to main list
-            items.items.push(new_item);
-            items.save_items();
-            items.add_item_html(new_item);
+          //     // Add danger component to input class
+          //     $('#item-input').addClass('is-danger');
+          //     $('#url_error').removeClass('is-invisible');
+              
+          //   }else{
+          //     // New item fetched successfully
+          //     // Add to main list
+          //     items.items.push(new_item);
+          //     items.save_items();
+          //     items.add_item_html(new_item);
 
-          }
+          //   }
 
-          // Close and reset moda
-          finished_loading_modal();
+          //   // Close and reset moda
+          //   finished_loading_modal();
 
-        });
+          // });
 
-      </script>
+      </script> -->
 
     </div>
 
-
-
-    <script>
-      
-      $ = require('jquery');
-
-      require('./main_window_controller.js');
-
-    </script>
   </body>
 </html>

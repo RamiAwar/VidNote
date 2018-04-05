@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Annotation Creator</title>
-    <link rel="stylesheet" href="../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../bower_components/components-font-awesome/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="main_window.css">
+    <link rel="stylesheet" href="../../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/annotation.css">
 
   </head>
   <body>
@@ -19,7 +19,13 @@
         
         <textarea id="annotation_text">Annotation text</textarea>
 
-        <button type="submit">Save</button>  
+        <a class="button-primary" id="add-button">
+          <span class="icon is-small">
+            <i class="fa fa-plus"></i>
+          </span>
+          <span><strong>Add Item</strong></span>
+        </a>
+
       </form>
 
     </div>
@@ -30,7 +36,7 @@
       
       $ = require('jquery');
 
-      require('../scripts/annotation_handler.js');
+      require('../js/annotation_handler.js');
 
     </script>
   </body>
