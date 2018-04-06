@@ -6,14 +6,18 @@ const url = require('url');
 // BrowserWindow instance
 exports.window
 
-exports.create_window = () => {
+exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
+
+
+	//TODO: Handle empty parameters passed to function in javascript
 
 	this.window = new BrowserWindow({
-		width:500,
-		height: 650,
-		minWidth: 350,
-		minHeight:310,
-		maxWidth:650
+		width:w,
+		height: h,
+		minWidth: mw,
+		minHeight:mh,
+		maxWidth:mxw,
+		maxHeight: mxh
 	})
 
 	// Enable Devtools
@@ -21,7 +25,8 @@ exports.create_window = () => {
 
 	// Load main window content
 	this.window.loadURL(url.format({
-		pathname: path.join(__dirname, '/annotation_window.html'),
+			pathname: path.join(__dirname, file_path),
+
 		protocol: 'file:'
 	}));
 
@@ -31,4 +36,6 @@ exports.create_window = () => {
 	})
 
 }
+
+
 

@@ -3,7 +3,8 @@ DEV = true;
 
 // ----- Modules ----- 
 const {app, ipcMain} = require('electron');
-const main_window = require('./src/common/window.js');
+const _window = require('./src/common/window.js');
+
 
 
 // Electron reload enabled for development use only
@@ -18,19 +19,13 @@ if(DEV){
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', ()=>{
-  main_window.create_window(600,450,350,450,650,450);
+  _window.create_window(600,450,350,450,650,450, '../renderer/views/index.html');
 });
 
-// Listen for new item
-// ipcMain.on('new_annotation', (e, item_URL) =>{
-
-//   // Send ok upon fetching thumbnail and title
-//   read_item( item_URL, (item) => {
-//       e.sender.send('new_item_ready', item);
-//   });
-
-// });
-
+// Listen for new annotation button
+ipcMain.on('open_annotation', (e, seek_time) =>{
+    _window.create_window(500, 500, 500, 500, 500, 500, '../renderer/views/annotation_creator.html');
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -44,8 +39,8 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  if (main_window === null) {
-    main_window.create_window();
+  if (_window === null) {
+    _window.create_window(600,450,350,450,650,450, '../renderer/views/index.html');
   }
 })
 

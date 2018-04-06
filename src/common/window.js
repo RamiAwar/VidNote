@@ -6,7 +6,7 @@ const url = require('url');
 // BrowserWindow instance
 exports.window
 
-exports.create_window = function(w, h, mw, mh, mxw, mxh){
+exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
 
 
 	//TODO: Handle empty parameters passed to function in javascript
@@ -25,7 +25,7 @@ exports.create_window = function(w, h, mw, mh, mxw, mxh){
 
 	// Load main window content
 	this.window.loadURL(url.format({
-		pathname: path.join(__dirname, '../renderer/views/index.html'),
+		pathname: path.join(__dirname, file_path),
 
 		protocol: 'file:'
 	}));
