@@ -1,10 +1,16 @@
+/**
+ * @module main 
+ * @description Main server side script 
+ * Manages annotation saving by interfacing with file system
+ * Loads video by interfacing with file system
+ */
+//test
 // True for development specific actions
 DEV = true;
 
-// ----- Modules ----- 
 const {app, ipcMain} = require('electron');
 const _window = require('./src/common/window.js');
-
+const _annotation_manager = require('./src/main/annotation_manager.js');
 
 
 // Electron reload enabled for development use only
