@@ -7,7 +7,22 @@
 const {ipcRenderer} = require('electron');
 $ = require('jquery');
 
+// Read already available annotation file (if available)
+const manager = require('../../common/annotation_manager.js');
+
+manager.annotation_list = manager.load_annotations('test.anot');
+
+console.log(manager.annotation_list);
+console.log(manager.annotation_list.length);
+
+if(manager.annotation_list.length){
+	manager.annotation_list.forEach(manager.render_annotation);
+	console.log("appending");
+}
+
 var can_submit = true;
+
+$("#add-annotation-button").click(annotate);
 
 /**
  * Called when new annotation is requested
@@ -33,6 +48,9 @@ function annotate(){
 ipcRenderer.on('annotation_save_response', (event, arg) => {  
     
     // Allow submission of new annotations
-    if(arg) can_submit = true;
+    if(arg) {
+    	can_submit = true;
+    	manager.render_annotations();
+    }
 
 });

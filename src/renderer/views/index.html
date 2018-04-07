@@ -20,21 +20,21 @@
         </video>
 
         <div class="row">
-          <button class="btn btn-primary" onclick="annotate()">Annotate Here</button>
+          <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
         </div>
       </div>
 
       <div class="col-lg-6 col-md-4 ">
         
-        <div class="list-group">
-          <button type="button" class="list-group-item list-group-item-action active">
-            Cras justo odio
-          </button>
+        <div id="annotation-list" class="list-group">
+         
         </div>
 
       </div>
 
-      <script src="../js/index.js"></script>
+      <script>
+        require('../js/index');
+      </script>
 
      <!--  <script>
         

@@ -10,8 +10,8 @@ DEV = true;
 
 const {app, ipcMain} = require('electron');
 const _window = require('./src/common/window.js');
-const _annotation_manager = require('./src/main/annotation_manager.js');
-var fs = require('fs'); // File system module
+const fs = require('fs');
+
 
 /*
   Global variables to hold the annotation every time one is created, and this is to allow it to be passed 
@@ -20,6 +20,9 @@ var fs = require('fs'); // File system module
 var annotation_time = 0;
 var annotation_text = "";
 
+
+//TODO: read video file name and then concatenate it with .anot extension
+var filename = "test.anot";
 
 let main_window, annotation_window;
 
@@ -36,8 +39,7 @@ let main_window, annotation_window;
 // Some APIs can only be used after this event occurs.
 app.on('ready', ()=>{
 
-  //TODO: load annotations 
-  
+  //TODO: load annotations and initialize global annotation list
   
   main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');
 
@@ -60,9 +62,12 @@ ipcMain.on('annotation_time_request', (e, f) => {
 
 ipcMain.on('annotation_save_request', (e, annotation)=>{
 
-  // Save annotation in seperate file 
-  var concatenated_annotation = annotation.annotation_time + "-" + annotation.annotation_text + ",";
-  fs.appendFile('test.anot', concatenated_annotation, function (err) {
+  // Save annotation in seperate file
+  
+  //TODO: load file, sort by timestamp, then insert 
+   
+  var concatenated_annotation = JSON.stringify(annotation) + "\`";
+  fs.appendFile(filename, concatenated_annotation, function (err) {
     if (err) {
       main_window.webContents.send('annotation_save_response', false);
       throw err;
@@ -74,10 +79,9 @@ ipcMain.on('annotation_save_request', (e, annotation)=>{
     
   });
 
-  // TODO: send annotation_save_response
+  // update annotation list on video
+  // read file
   
-
-  //TODO: update annotation list on video
 
 });
 
