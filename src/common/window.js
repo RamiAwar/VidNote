@@ -1,7 +1,7 @@
 /**
  * @module window
  * @exports create_window
- * @description Module for creating new browser windows and loading html files assigned to them.
+* @description Module for creating new browser windows and loading html files assigned to them.
  */
 
 const {BrowserWindow} = require('electron');
@@ -57,6 +57,7 @@ exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
   		this.window.show();
 	});
 
+	return this.window;
 
 }
 

@@ -8,7 +8,6 @@ exports.window
 
 exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
 
-
 	//TODO: Handle empty parameters passed to function in javascript
 
 	this.window = new BrowserWindow({

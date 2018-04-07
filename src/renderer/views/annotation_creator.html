@@ -9,35 +9,21 @@
 
   </head>
   <body>
-    
-    
-    <div class="container">
-      
-      <h1>Hello there</h1>
+   
+    <div class="jumbotron container form-group">
 
-      <form onsubmit="save_annotation()">
-        
-        <textarea id="annotation-text">Annotation text</textarea>
+        <label for="annotation-text">Annotation</label>
+        <textarea class="form-control" id="annotation-text">Annotation text</textarea>
 
-        <a class="button-primary" id="add-button">
-          <span class="icon is-small">
-            <i class="fa fa-plus"></i>
-          </span>
-          <span><strong>Add Item</strong></span>
-        </a>
+        <button class="btn btn-primary" id="add-annotation" onclick="add_annotation()">Button</button>
+
 
       </form>
 
     </div>
 
+    <script src="../../common/annotation.js"></script>
+    <script src="../js/annotation_handler.js"></script>
 
-
-    <script>
-      
-      $ = require('jquery');
-
-      require('../js/annotation_handler.js');
-
-    </script>
   </body>
 </html>
