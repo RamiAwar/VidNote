@@ -12,7 +12,7 @@ pids
 *.pid.lock
 
 # Ignore videos for testing
-src/static/videos/
+# src/static/videos/
 
 # Ignore mockups
 docs/GUI\ Mockups/
