@@ -39,7 +39,7 @@ app.on('ready', ()=>{
   //TODO: load annotations 
   
   
-  main_window = _window.create_window(600,450,350,450,650,450, '../renderer/views/index.html');
+  main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');
 
   //TODO: send annotations list to update index.html
   

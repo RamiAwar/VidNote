@@ -11,18 +11,27 @@
   </head>
   <body>
     
-    
-    <div class="container">
+    <!-- TODO: Make a responsive sidebar upon resize -->
 
-      <div class="row">
-        <h1>Hello there</h1>
+    <div class="jumbotron container row">
+      
+      <div class="col-lg-6 col-md-8 col-sm-12">
+        <video width="100%" src="../../static/videos/test.mp4" controls>
+        </video>
+
+        <div class="row">
+          <button class="btn btn-primary" onclick="annotate()">Annotate Here</button>
+        </div>
       </div>
 
-      <video src="../../static/videos/test.mp4" width="500px" controls>
-      </video>
+      <div class="col-lg-6 col-md-4 ">
+        
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action active">
+            Cras justo odio
+          </button>
+        </div>
 
-      <div class="row">
-        <button class="btn btn-primary" onclick="annotate()">Annotate Here</button>
       </div>
 
       <script src="../js/index.js"></script>
