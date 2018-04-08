@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome to VidNote</title>
+	<link rel="stylesheet" href="../css/photon.min.css"/>
+    <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/greeter.css"/>
+
+</head>
+<body>
+
+	<!-- <div id="input_wrapper">	
+		<div id="input_placeholder" onclick="document.querySelector('#input').click();">Choose File</div>
+		<input id="input_file" type="file" accept="video/*" class="form-control">
+		<div id="feedback"></div>
+	</div>
+
+	<div id="filename"></div>
+
+	<div id="button_wrapper">
+		<button class="button" type="submit">Start Annotating</button>
+	</div> -->
+
+	<div class="window content">
+
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <div class="title-bar">
+        	<span class="fa-stack">
+        		<i class="fa fa-stack-1x fa-circle" id="close-circle"></i>
+        		<i class="fa fa-stack-1x fa-times-circle"></i>
+        	</span>
+      		
+      		<span class="fa-stack">
+      			<i class="fa fa-stack-1x fa-circle" id="minimize-circle"></i>
+      			<i class="fa fa-stack-1x fa-minus-circle"></i>
+      		</span>
+
+        	<h1 class="title">VidNote</h1>
+        
+        </div>
+      </header>
+
+      <!-- Your app's content goes inside .window-content -->
+      <div class="window-content">
+        <div class="pane-group">
+         
+        	<div id="logo-pane" class="pane">
+        		<div class="logo"></div>
+        		<div class="text-container">
+
+        			<div id="input_placeholder" class="upload-here" onclick="document.querySelector('#input_file').click();">Choose Video</div>
+        			<input id="input_file" type="file" accept="video/*" class="form-control">
+        			<div id="next" class="pulse"></div>
+
+        		</div>
+        	</div>
+          
+          
+        </div>
+      </div>
+    </div>
+
+</div>
+
+
+<script>
+	$ = require('jquery')
+	const {TweenMax} = require('gsap')
+	require('../js/greeter.js')
+
+	text_container = $('.text-container')[0];
+	TweenMax.to(text_container, 0, {x:40, y:0, rotation:0});
+	TweenMax.to($('#next')[0] , 0, {x:0, y:-50%, rotation:0});
+
+	$('#input_file').change(function(){
+		const {name, path} = $('#input_file')[0].files[0];
+
+		TweenMax.to($('#next'), 1, {opacity:1, ease:Linear.easeNone});
+		TweenMax.to(text_container, 1, {x:0, y:0, rotation:0, ease:Power0.easeIn});
+		TweenMax.to($('#next'), 1, {fill:'#e00', ease:Strong.easeIn});
+
+		// TweenMax.to(box, 2, {left:"700px", repeat:-1, yoyo:true, onRepeat:onRepeat, repeatDelay:0, ease:Linear.easeNone});
+
+		// function onRepeat() {
+		//   count++;
+		//   box.innerHTML = count;
+		//   TweenLite.set(box, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
+		// }		
+	});
+
+
+
+
+</script>
+
+</body>
+</html>

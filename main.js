@@ -53,7 +53,8 @@ if(DEV){
 
 app.on('ready', ()=>{
   
-  main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');  
+  greeter_window = _window.create_window(400,250,400,250,400,250, '../renderer/views/greeter.html');
+  //main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');  
   
 });
 

@@ -35,8 +35,12 @@ exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
 		minHeight:mh,
 		maxWidth:mxw,
 		maxHeight: mxh,
-		show: false
+		show: false,
+		frame: false,
+		transparent: true
 	})
+
+
 
 	// Open Devtools
 	//this.window.webContents.openDevTools();
