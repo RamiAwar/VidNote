@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#annotate">annotate</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#open_annotation_window">open_annotation_window</a></span></li>
 </nav>
 
 <div id="main">
@@ -49,6 +49,8 @@
 
 const {ipcRenderer} = require('electron');
 $ = require('jquery');
+let fs = require('fs');
+var filename = 'test.anot';
 
 /**
  * This allows current window access and window management (client side)
@@ -71,6 +73,7 @@ ipcRenderer.on('annotation_time_response', (event, seek_time)=>{
 
 function add_annotation(){
 
+	annotation_title = $('#annotation-title').val();
 	annotation_text = $('#annotation-text').val();
 	console.log(annotation_text);
 
@@ -78,35 +81,73 @@ function add_annotation(){
 	if(annotation_text !== "" &amp;&amp; annotation_time != -1.1 &amp;&amp; not_sent){
 		
 		// Issue event request to save the annotation server side
-		let a = new Annotation(annotation_text, annotation_time);
+		let a = new Annotation(annotation_title, annotation_text, annotation_time);
 
-		ipcRenderer.send('annotation_save_request', a);
+		save_annotation(a, filename);
 
 		//TODO: Disable button input
 		not_sent = false;
-		$('#annotation-text').prop('disabled', true);
-		$('#add-annotation').prop('disabled', true);
+		disable_inputs();
 
 	}
 }
 
-ipcRenderer.on('annotation_save_response', (event, result)=>{
-	
-	if(result == false){
-		//TODO: Feedback to user: some error occured
-		
-		not_sent = true;
-		$('#annotation-text').prop('disabled', false);
-		$('#add-annotation').prop('disabled', false);
+/**
+ * Disable all inputs while waiting for result of saving annotation.
+ * 
+ */
+function disable_inputs(){
+	$('#annotation-title').prop('disabled', true);
+	$('#annotation-text').prop('disabled', true);
+	$('#add-annotation').prop('disabled', true);
+}
 
+/**
+ * Close window if annotation was saved successfully.
+ */
+function handle_success(){
+	//TODO: display success message to user
+	// Close window
+	console.log("Closing window");
+	var current_window = remote.getCurrentWindow();
+   	current_window.close(); 
+	
+}
+
+/**
+ * Display error message and allow another attempt at saving annotation upon failure to save.
+ */
+function handle_failure(){
+	
+	//TODO: Feedback to user: some error occured
+	not_sent = true;
+	$('#annotation-text').prop('disabled', false);
+	$('#add-annotation').prop('disabled', false);
+	$('#annotation-title').prop('disabled', false);
+
+
+}
+
+/**
+ * Append currently added annotation to the corresponding .anot file
+ * @param  {Annotation} annotation Annotation object
+ * @param  {String} filename   .anot file name
+ */
+function save_annotation(annotation, filename){
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+	fs.appendFile(filename, concatenated_annotation, function (err) {
+	if (err) {
+	  handle_failure();
+	  throw err;
 	}else{
-		// Close window
-		console.log("Closing window");
-		var current_window = remote.getCurrentWindow();
-       	current_window.close(); 
-		
+	  console.log("Success");
+	  handle_success();
+	  ipcRenderer.send('annotation_save_response', annotation);
 	}
-});</code></pre>
+
+	});
+}
+</code></pre>
         </article>
     </section>
 
@@ -118,7 +159,7 @@ ipcRenderer.on('annotation_save_response', (event, result)=>{
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 01:22:34 GMT+0300 (Middle East Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 16:48:39 GMT+0300 (Middle East Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

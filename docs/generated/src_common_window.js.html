@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>src/common/window.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,180 +29,84 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">src/common/window.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="open_annotation_window"><span class="type-signature"></span>open_annotation_window<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Send event to main controller to open annotation window</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_renderer_js_index.js.html">src/renderer/js/index.js</a>, <a href="src_renderer_js_index.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module window
+ * @exports create_window
+ * @description  Module for creating new browser windows and loading html files assigned to them.
+ * @author Rami Awar
+ * @copyright MIT License
+ */
+
+const {BrowserWindow} = require('electron');
+
+const path = require('path');
+const url = require('url');
+
+/** BrowserWindow instance */
+exports.window
+
+/**
+ * Creates a new browser window.
+ * @param {Number} w Window starting width
+ * @param {Number} h Window starting height
+ * @param {Number} mw Window minimum width
+ * @param {Number} mh Window minimum height
+ * @param {Number} mxw Window maximum width
+ * @param {Number} mxh Window maximum height
+ */
+exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
+
+
+	//TODO: Handle empty parameters passed to function in javascript
+
+	this.window = new BrowserWindow({
+		width:w,
+		height: h,
+		minWidth: mw,
+		minHeight:mh,
+		maxWidth:mxw,
+		maxHeight: mxh,
+		show: false
+	})
+
+	// Open Devtools
+	//this.window.webContents.openDevTools();
+
+	// Load main window content
+	this.window.loadURL(url.format({
+		pathname: path.join(__dirname, file_path),
+		protocol: 'file:'
+	}));
+
+	// Handle windows close - clear memory
+	this.window.on('closed', ()=> {
+		this.window = null;
+	})
+
+	// Show window only after HTML and CSS and JS have finished loading
+	this.window.once('ready-to-show', () => {
+  		this.window.show();
+	});
+
+	return this.window;
+
+}
+
+
+
+</code></pre>
+        </article>
+    </section>
 
 
 

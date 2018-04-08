@@ -30,6 +30,10 @@ ipcRenderer.on('annotation_time_response', (event, seek_time)=>{
 	annotation_time = seek_time;
 });
 
+/**
+ * @function add_annotation 
+ * @description  Fetches inputted information from annotation creation window and bundles them into an annotation object then saves it and renders the newly added annotation to the screen.
+ */
 function add_annotation(){
 
 	annotation_title = $('#annotation-title').val();

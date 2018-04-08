@@ -1,7 +1,9 @@
 /**
  * @module window
  * @exports create_window
-* @description Module for creating new browser windows and loading html files assigned to them.
+ * @description  Module for creating new browser windows and loading html files assigned to them.
+ * @author Rami Awar
+ * @copyright MIT License
  */
 
 const {BrowserWindow} = require('electron');
@@ -13,15 +15,13 @@ const url = require('url');
 exports.window
 
 /**
- * @description Creates a new browser window
- * 
- * @param w Window starting width
- * @param h Window starting height
- * @param mw Window minimum width
- * @param mh Window minimum height
- * @param mxw Window maximum width
- * @param mxh Window maximum height
- * @return void
+ * Creates a new browser window.
+ * @param {Number} w Window starting width
+ * @param {Number} h Window starting height
+ * @param {Number} mw Window minimum width
+ * @param {Number} mh Window minimum height
+ * @param {Number} mxw Window maximum width
+ * @param {Number} mxh Window maximum height
  */
 exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
 

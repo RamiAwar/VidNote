@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>src/renderer/js/annotation_handler.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,180 +29,131 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">src/renderer/js/annotation_handler.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="open_annotation_window"><span class="type-signature"></span>open_annotation_window<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Send event to main controller to open annotation window</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_renderer_js_index.js.html">src/renderer/js/index.js</a>, <a href="src_renderer_js_index.js.html#line29">line 29</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module annotation_handler
+ * @description Handles all annotation window related event management.
+ * Specifically, this class must fetch all form fields and create
+ * an annotation object to be sent to our annotation_manager on the server
+ * side which then decides what to do with it.
+ */
+
+const {ipcRenderer} = require('electron');
+$ = require('jquery');
+let fs = require('fs');
+var filename = 'test.anot';
+
+/**
+ * This allows current window access and window management (client side)
+ */
+const remote = require('electron').remote;
+
+
+let annotation_time = -1.1;
+let annotation_text = "";
+
+let not_sent = true;
+
+// Request annotation_time 
+ipcRenderer.send('annotation_time_request', 1);
+
+// Receive annotation_time 
+ipcRenderer.on('annotation_time_response', (event, seek_time)=>{
+	annotation_time = seek_time;
+});
+
+/**
+ * @function add_annotation 
+ * @description  Fetches inputted information from annotation creation window and bundles them into an annotation object then saves it and renders the newly added annotation to the screen.
+ */
+function add_annotation(){
+
+	annotation_title = $('#annotation-title').val();
+	annotation_text = $('#annotation-text').val();
+	console.log(annotation_text);
+
+	// Make sure user has entered an annotation to save
+	if(annotation_text !== "" &amp;&amp; annotation_time != -1.1 &amp;&amp; not_sent){
+		
+		// Issue event request to save the annotation server side
+		let a = new Annotation(annotation_title, annotation_text, annotation_time);
+
+		save_annotation(a, filename);
+
+		//TODO: Disable button input
+		not_sent = false;
+		disable_inputs();
+
+	}
+}
+
+/**
+ * Disable all inputs while waiting for result of saving annotation.
+ * 
+ */
+function disable_inputs(){
+	$('#annotation-title').prop('disabled', true);
+	$('#annotation-text').prop('disabled', true);
+	$('#add-annotation').prop('disabled', true);
+}
+
+/**
+ * Close window if annotation was saved successfully.
+ */
+function handle_success(){
+	//TODO: display success message to user
+	// Close window
+	console.log("Closing window");
+	var current_window = remote.getCurrentWindow();
+   	current_window.close(); 
+	
+}
+
+/**
+ * Display error message and allow another attempt at saving annotation upon failure to save.
+ */
+function handle_failure(){
+	
+	//TODO: Feedback to user: some error occured
+	not_sent = true;
+	$('#annotation-text').prop('disabled', false);
+	$('#add-annotation').prop('disabled', false);
+	$('#annotation-title').prop('disabled', false);
+
+
+}
+
+/**
+ * Append currently added annotation to the corresponding .anot file
+ * @param  {Annotation} annotation Annotation object
+ * @param  {String} filename   .anot file name
+ */
+function save_annotation(annotation, filename){
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+	fs.appendFile(filename, concatenated_annotation, function (err) {
+	if (err) {
+	  handle_failure();
+	  throw err;
+	}else{
+	  console.log("Success");
+	  handle_success();
+	  ipcRenderer.send('annotation_save_response', annotation);
+	}
+
+	});
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Global - Documentation</title>
+    <title>main - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">main</h1>
     
 
     
@@ -41,9 +41,8 @@
 
 <header>
     
-        <h2>
         
-        </h2>
+            
         
     
 </header>
@@ -52,8 +51,17 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Main server side script, loads video by interfacing with file system and manages window creation and event listeners attached to them.</p></div>
+        
 
         
+            
+<div class="section-method">
+
+
+
+
+
 
 
 <dl class="details">
@@ -75,13 +83,28 @@
     
 
     
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Rami Awar</li>
+        </ul>
+    </dd>
+    
 
+    
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>MIT License</li></ul></dd>
     
 
     
 
     
 
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="main.js.html">main.js</a>, <a href="main.js.html#line1">line 1</a>
+    </li></ul></dd>
     
 
     
@@ -92,6 +115,28 @@
 </dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
         
     
     </div>
@@ -107,24 +152,18 @@
     
 
     
-
-    
-        <h3 class="subsection-title">Methods</h3>
+        <h3 class="subsection-title">Members</h3>
 
         
             
-<div class="section-method">
+<div class="section-members">
+<h4 class="name" id="~annotation_time"><span class="type-signature">(inner) </span>annotation_time<span class="type-signature"> :Number</span></h4>
 
-    
-
-    <h4 class="name" id="open_annotation_window"><span class="type-signature"></span>open_annotation_window<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
 
 
 
 <div class="description">
-    <p>Send event to main controller to open annotation window</p>
+    <p>Annotation time holds the latest created annotation time since it has to be passed from one window to another</p>
 </div>
 
 
@@ -160,7 +199,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_renderer_js_index.js.html">src/renderer/js/index.js</a>, <a href="src_renderer_js_index.js.html#line29">line 29</a>
+        <a href="main.js.html">main.js</a>, <a href="main.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -173,28 +212,99 @@
 
 
 
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Number</code></span>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </li>
+    </ul>
 
 
 
 
 
 </div>
+
         
+            
+<div class="section-members">
+<h4 class="name" id="~DEV"><span class="type-signature">(inner) </span>DEV<span class="type-signature"> :Boolean</span></h4>
+
+
+
+
+<div class="description">
+    <p>Development-mode on : enables electron reload and logging messages.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="main.js.html">main.js</a>, <a href="main.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Boolean</code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
+
     
 
     
