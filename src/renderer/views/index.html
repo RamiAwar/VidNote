@@ -13,28 +13,35 @@
     
     <!-- TODO: Make a responsive sidebar upon resize -->
 
-    <div class="jumbotron container row">
-      
-      <div class="col-lg-6 col-md-8 col-sm-12">
-        <video width="100%" src="../../static/videos/test.mp4" controls>
-        </video>
+    <div class="container-fluid">
 
-        <div class="row">
-          <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
+      <div class="jumbotron" >
+
+        <div id="video-container" class="col-lg-6 col-md-8 col-sm-12">
+          
+          <div class="row">
+            <video width="100%" src="../../static/videos/test.mp4" controls>
+            </video>
+          </div>
+
+          <div class="row">
+            <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
+          </div>
+
         </div>
-      </div>
 
-      <div class="col-lg-6 col-md-4 ">
-        
-        <div id="annotation-list" class="list-group">
-         
+        <div class="col-lg-6 col-md-4" id="annotation-list-container">
+          <div id="annotation-list" class="list-group">
+          </div>
         </div>
 
-      </div>
 
-      <script>
-        require('../js/index');
-      </script>
+      </div>
+    </div>
+
+    <script>
+      require('../js/index');
+    </script>
 
      <!--  <script>
         
@@ -78,7 +85,6 @@
 
       </script> -->
 
-    </div>
 
   </body>
 </html>

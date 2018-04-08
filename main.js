@@ -4,11 +4,11 @@
  * Manages annotation saving by interfacing with file system
  * Loads video by interfacing with file system
  */
-//test
+
 // True for development specific actions
 DEV = true;
 
-const {app, ipcMain} = require('electron');
+const {app, ipcMain, dialog} = require('electron');
 const _window = require('./src/common/window.js');
 const fs = require('fs');
 
@@ -27,11 +27,11 @@ var filename = "test.anot";
 let main_window, annotation_window;
 
 // Electron reload enabled for development use only
-// if(DEV){
-//   require('electron-reload')(__dirname,{
-//       electron: require(`${__dirname}/node_modules/electron`)
-//   });
-// }
+if(DEV){
+  require('electron-reload')(__dirname,{
+      electron: require(`${__dirname}/node_modules/electron`)
+  });
+}
 
 
 // This method will be called when Electron has finished
@@ -50,9 +50,20 @@ app.on('ready', ()=>{
 
 // Listen for new annotation button
 ipcMain.on('open_annotation_window', (e, seek_time) =>{
-    annotation_window = _window.create_window(500, 500, 500, 500, 500, 500, '../renderer/views/annotation_creator.html');
+    annotation_window = _window.create_window(500, 300, 500, 300, 500, 500, '../renderer/views/annotation_creator.html');
     annotation_time = seek_time;
-    console.log(annotation_time);
+
+    annotation_window.on('close', function() { //   <---- Catch close event
+
+        // The dialog box below will open, instead of your app closing.
+        // dialog.showMessageBox({
+        //     message: "Close button has been pressed!",
+        //     buttons: ["OK"]
+        // });
+       
+        main_window.webContents.send('annotation_window_closed', 1);
+
+    });
 });
 
 // Listen for annotation_time request
@@ -60,30 +71,6 @@ ipcMain.on('annotation_time_request', (e, f) => {
   e.sender.send('annotation_time_response', annotation_time);
 });
 
-ipcMain.on('annotation_save_request', (e, annotation)=>{
-
-  // Save annotation in seperate file
-  
-  //TODO: load file, sort by timestamp, then insert 
-   
-  var concatenated_annotation = JSON.stringify(annotation) + "\`";
-  fs.appendFile(filename, concatenated_annotation, function (err) {
-    if (err) {
-      main_window.webContents.send('annotation_save_response', false);
-      throw err;
-    }else{
-      console.log("Success");
-      main_window.webContents.send('annotation_save_response', true);
-      annotation_window.webContents.send('annotation_save_response', true);
-    }
-    
-  });
-
-  // update annotation list on video
-  // read file
-  
-
-});
 
 
 // Quit when all windows are closed.

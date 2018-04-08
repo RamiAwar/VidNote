@@ -1,5 +1,33 @@
-#annotation-list{
-	display: flex;
+html{
+	height:100%;
+}
+
+body{
+	height:100%;
+}
+
+.jumbotron{
+	margin:0px 0px;
+	height:100%;
+	display:flex;
+}
+
+.container-fluid{
+	height:100%;
+	margin:0px 0px;
+	padding:0px 0px;
+}
+
+#annotation-list-container{
     flex-direction: column;
 	overflow-y: scroll;
+	max-height: 300px;
+}
+
+#video-container{
+	align-items:center;
+}
+
+video{
+	height:100%;
 }
