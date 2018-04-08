@@ -1,30 +1,35 @@
 /**
- * Handles all annotation window related event management.
- * Specifically, this class must fetch all form fields and create
- * an annotation object to be sent to our annotation_manager on the server
- * side which then decides what to do with it.
+ * @module index 
+ * @description Handles all annotation window related event management.  Specifically, this class must fetch all form fields and create an annotation object to be sent to our annotation_manager on the server side which then decides what to do with it.
+ * @author Rami Awar
+ * @copyright MIT License
  */
+
 const {ipcRenderer} = require('electron');
 $ = require('jquery');
 
-// Read already available annotation file (if available)
+/**
+ * Read already available annotation file (if available) else initialize to empty array
+ */
 const manager = require('../../common/annotation_manager.js');
-
 manager.annotation_list = (manager.load_annotations('test.anot')) || [];
 
-// Append elements to annotation list
+/**
+ * Append elements to annotation list if nonempty
+ */
 if(manager.annotation_list.length){
 	manager.annotation_list.forEach(manager.render_annotation);
 }
 
-var can_submit = true;
-
+/**
+ * Attaching click listener to button
+ */
 $("#add-annotation-button").click(open_annotation_window);
 
 /**
  * Called when new annotation is requested
  * @description Send event to main controller to open annotation window
- * 
+ * @return {void}
  */
 function open_annotation_window(){
 

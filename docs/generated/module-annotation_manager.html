@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Annotation - Documentation</title>
+    <title>annotation_manager - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Annotation</h1>
+    <h1 class="page-title">annotation_manager</h1>
     
 
     
@@ -41,9 +41,8 @@
 
 <header>
     
-        <h2>
-        Annotation
-        </h2>
+        
+            
         
     
 </header>
@@ -52,19 +51,14 @@
     <div class="container-overview">
     
         
+            <div class="description"><p>Module for creating new browser windows and loading html files assigned to them.</p></div>
+        
+
+        
+            
 <div class="section-method">
 
-    
 
-    <h4 class="name" id="Annotation"><span class="type-signature"></span>new Annotation<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Annotation object that holds the video time and annotation text of the respective annotation. Audio to be added later.</p>
-</div>
 
 
 
@@ -98,10 +92,10 @@
     
 
     
-
+    <dt class="tag-copyright">Copyright:</dt>
+    <dd class="tag-copyright"><ul class="dummy"><li>MIT License</li></ul></dd>
     
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li>MIT License</li></ul></dd>
+
     
 
     
@@ -109,7 +103,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_common_annotation.js.html">src/common/annotation.js</a>, <a href="src_common_annotation.js.html#line1">line 1</a>
+        <a href="src_common_annotation_manager.js.html">src/common/annotation_manager.js</a>, <a href="src_common_annotation_manager.js.html#line1">line 1</a>
     </li></ul></dd>
     
 
@@ -143,6 +137,7 @@
 
 
 </div>
+        
     
     </div>
 
@@ -159,47 +154,22 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
 
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        Annotation
-        </h2>
         
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
+            
 <div class="section-method">
 
     
 
-    <h4 class="name" id="Annotation"><span class="type-signature"></span>new Annotation<span class="signature">(annotation_title, annotation_text, video_time)</span><span class="type-signature"> &rarr; {void}</span></h4>
+    <h4 class="name" id=".load_annotations"><span class="type-signature">(static) </span>load_annotations<span class="signature">(filename)</span><span class="type-signature"> &rarr; {Array.&lt;<a href="Annotation.html">Annotation</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Annotation constructor</p>
+    <p>Loads annotations from a give .anot</p>
 </div>
 
 
@@ -235,7 +205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_common_annotation.js.html">src/common/annotation.js</a>, <a href="src_common_annotation.js.html#line16">line 16</a>
+        <a href="src_common_annotation_manager.js.html">src/common/annotation_manager.js</a>, <a href="src_common_annotation_manager.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -279,7 +249,7 @@
 
         <tr>
             
-                <td class="name"><code>annotation_title</code></td>
+                <td class="name"><code>filename</code></td>
             
 
             <td class="type">
@@ -296,22 +266,156 @@
             
 
             <td class="description last">
-                <p>Title of the annotation in the video.</p>
+                <p>.anot file name</p>
                 
             </td>
         </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Array.&lt;<a href="Annotation.html">Annotation</a>></code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>An arrray of annotations parsed from the input</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id=".render_annotation"><span class="type-signature">(static) </span>render_annotation<span class="signature">(item)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Renders a given annotation object to the annotation list in index.html</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_common_annotation_manager.js.html">src/common/annotation_manager.js</a>, <a href="src_common_annotation_manager.js.html#line51">line 51</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
 
         <tr>
             
-                <td class="name"><code>annotation_text</code></td>
+                <td class="name"><code>item</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>String</code></span>
+<span class="param-type"><code><a href="Annotation.html">Annotation</a></code></span>
 
 
             
@@ -322,33 +426,7 @@
             
 
             <td class="description last">
-                <p>Text of the annotation in the video.</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>video_time</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Float</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Time of the annotation in the video.</p>
+                <p>Annotation to render</p>
                 
             </td>
         </tr>
@@ -394,21 +472,189 @@
 
 
 </div>
-    
-    </div>
+        
+            
+<div class="section-method">
 
     
 
+    <h4 class="name" id="~save_annotation"><span class="type-signature">(inner) </span>save_annotation<span class="signature">(annotation, filename)</span><span class="type-signature"> &rarr; {void}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Saves a given annotation to the given filename. If other annotations in the filename are already present, the annotation is simply appended. Sorting on every load is acknowledged, but for simplicity this model is enough. Another storage model might be more fitting in case the uses of this application evolve into something more complex.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
     
 
     
 
-     
+    
+
+    
 
     
 
     
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="src_common_annotation_manager.js.html">src/common/annotation_manager.js</a>, <a href="src_common_annotation_manager.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>annotation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="Annotation.html">Annotation</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filename</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>String</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>void</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
     
 
     

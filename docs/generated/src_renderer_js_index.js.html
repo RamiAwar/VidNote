@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#open_annotation_window">open_annotation_window</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_manager.html">annotation_manager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.load_annotations">load_annotations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.render_annotation">render_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-index.html">index</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-index.html#~open_annotation_window">open_annotation_window</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li>
 </nav>
 
 <div id="main">
@@ -40,32 +40,37 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Handles all annotation window related event management.
- * Specifically, this class must fetch all form fields and create
- * an annotation object to be sent to our annotation_manager on the server
- * side which then decides what to do with it.
+ * @module index 
+ * @description Handles all annotation window related event management.  Specifically, this class must fetch all form fields and create an annotation object to be sent to our annotation_manager on the server side which then decides what to do with it.
+ * @author Rami Awar
+ * @copyright MIT License
  */
+
 const {ipcRenderer} = require('electron');
 $ = require('jquery');
 
-// Read already available annotation file (if available)
+/**
+ * Read already available annotation file (if available) else initialize to empty array
+ */
 const manager = require('../../common/annotation_manager.js');
-
 manager.annotation_list = (manager.load_annotations('test.anot')) || [];
 
-// Append elements to annotation list
+/**
+ * Append elements to annotation list if nonempty
+ */
 if(manager.annotation_list.length){
 	manager.annotation_list.forEach(manager.render_annotation);
 }
 
-var can_submit = true;
-
+/**
+ * Attaching click listener to button
+ */
 $("#add-annotation-button").click(open_annotation_window);
 
 /**
  * Called when new annotation is requested
  * @description Send event to main controller to open annotation window
- * 
+ * @return {void}
  */
 function open_annotation_window(){
 
@@ -111,7 +116,7 @@ ipcRenderer.on('annotation_window_closed', (e, f)=>{
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 17:16:23 GMT+0300 (Middle East Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 19:12:39 GMT+0300 (Middle East Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

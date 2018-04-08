@@ -1,6 +1,8 @@
 /**
  * @class Annotation
  * @description Annotation object that holds the video time and annotation text of the respective annotation. Audio to be added later.
+ * @author  Rami Awar
+ * @license MIT License
  */
 class Annotation{
 

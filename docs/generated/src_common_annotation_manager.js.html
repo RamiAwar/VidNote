@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>main - Documentation</title>
+    <title>src/common/annotation_manager.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,290 +29,123 @@
 
 <div id="main">
     
-    <h1 class="page-title">main</h1>
+    <h1 class="page-title">src/common/annotation_manager.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
-    
-        
-            
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description"><p>Main server side script, loads video by interfacing with file system and manages window creation and event listeners attached to them.</p></div>
-        
-
-        
-            
-<div class="section-method">
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Rami Awar</li>
-        </ul>
-    </dd>
-    
-
-    
-    <dt class="tag-copyright">Copyright:</dt>
-    <dd class="tag-copyright"><ul class="dummy"><li>MIT License</li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="main.js.html">main.js</a>, <a href="main.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="~annotation_time"><span class="type-signature">(inner) </span>annotation_time<span class="type-signature"> :Number</span></h4>
-
-
-
-
-<div class="description">
-    <p>Annotation time holds the latest created annotation time since it has to be passed from one window to another</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="main.js.html">main.js</a>, <a href="main.js.html#line32">line 32</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>Number</code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="~DEV"><span class="type-signature">(inner) </span>DEV<span class="type-signature"> :Boolean</span></h4>
-
-
-
-
-<div class="description">
-    <p>Development-mode on : enables electron reload and logging messages.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module annotation_manager
+ * @exports load_annotations
+ * @exports render_annotation
+ * @description  Module for creating new browser windows and loading html files assigned to them.
+ * @author Rami Awar
+ * @copyright MIT License
+ */
 
-    
-
-    
+const {ipcRenderer} = require('electron');
+let fs = require('fs');
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="main.js.html">main.js</a>, <a href="main.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
+exports.annotation_list = [];
 
-    
 
-    
+var filename = 'test.anot';
 
-    
-</dl>
 
 
+//TODO: change loading and rendering annotations to event based asynchronous operations. currently synchronous and blocking for simplicity
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code>Boolean</code></span>
+/**
+ * Loads annotations from a give .anot
+ * @param  {String} filename .anot file name
+ * @return {Array&lt;Annotation>} An arrray of annotations parsed from the input
+ */
+exports.load_annotations = function(filename){
 
+	var parsed_array = [];
+	var contents = "";
+	try{
+		contents = fs.readFileSync(filename, 'utf8');
+	}catch(err){
+		//no file found
+	}
+	var array = contents.split("\`");
+		
+	for(var i = 0; i &lt; array.length - 1; i++){
+		parsed_array.push(JSON.parse(array[i]));	
+	}
 
-        </li>
-    </ul>
+	return parsed_array;
 
+}
 
+/**
+ * Renders a given annotation object to the annotation list in index.html
+ * @param  {Annotation} item Annotation to render
+ * @return {void}
+ */
+exports.render_annotation = (item)=>{
 
+		$("#annotation-list").append(
+			`
+          	&lt;a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
+			    &lt;div class="d-flex w-100 justify-content-between" >
+			      &lt;h5 class="mb-1">${item.annotation_title}&lt;/h5>
+			      &lt;small>${item.annotation_time}&lt;/small>
+			    &lt;/div>
+			    &lt;p class="mb-1">${item.annotation_text}&lt;/p>
+			&lt;/a>	
+          	`);
+}
 
 
-</div>
 
-        
-    
 
-    
+/**
+ * annotation_save_request Listener
+ */
+ipcRenderer.on('annotation_save_request', (e, annotation)=>{
 
-    
+  // Save annotation in seperate file
+  save_annotation(annotation, filename);
+  
+  // update annotation list on video
+  //TODO: empty annotation list in html
+  //TODO: insert annotation in the list while sorting
+  //TODO: display annotation list in html
+  //TODO: create smart insertion method to insert to html without recreating everything
+  render_annotation(annotation);
 
-    
-</article>
+});
 
-</section>
+/**
+ * Saves a given annotation to the given filename. If other annotations in the filename are already present, the annotation is simply appended. Sorting on every load is acknowledged, but for simplicity this model is enough. Another storage model might be more fitting in case the uses of this application evolve into something more complex.
+ * @param  {Annotation} annotation
+ * @param  {String} filename  
+ * @return {void}       
+ */
+function save_annotation(annotation, filename){
+
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+
+	fs.appendFile(filename, concatenated_annotation, function (err) {
+
+		if(err){
+			//TODO: display error on failure of writing new annotation to file
+		}else{
+			//TODO: display success toast
+		}
+
+	});
+}
+</code></pre>
+        </article>
+    </section>
 
 
 

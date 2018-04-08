@@ -3,7 +3,6 @@
  * @description  Main server side script, loads video by interfacing with file system and manages window creation and event listeners attached to them.
  * @author Rami Awar
  * @copyright MIT License
- * 
  */
 
 // True for development specific actions
@@ -89,7 +88,9 @@ ipcMain.on('open_annotation_window', (e, seek_time) =>{
     });
 });
 
-// Listen for annotation_time request
+/**
+ * Listen for annotation_time request
+ */
 ipcMain.on('annotation_time_request', (e, f) => {
   e.sender.send('annotation_time_response', annotation_time);
 });
