@@ -9,7 +9,7 @@
 /**
  * @var {Boolean} DEV Development-mode on : enables electron reload and logging messages.
  */
-var DEV = true;
+var DEV = false;
 
 /**
  * Setup
@@ -30,6 +30,7 @@ const fs = require('fs');
  * @type {Number}
  */
 var annotation_time = 0;
+var thumbnail;
 
 
 //TODO: read video file name and then concatenate it with .anot extension
@@ -76,7 +77,7 @@ app.on('window-all-closed', function () {
 
 ipcMain.on('open_main_window', (e, namepath) =>{
 
-    main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');
+    main_window = _window.create_window(900, 450, 900, 450, 900, 450, '../renderer/views/index.html');
     main_window.on('closed', ()=>{
       app.relaunch();
       app.quit();
@@ -87,9 +88,11 @@ ipcMain.on('open_main_window', (e, namepath) =>{
 /**
  * Opens annotation creation window
  */
-ipcMain.on('open_annotation_window', (e, seek_time) =>{
+ipcMain.on('open_annotation_window', (e, obj) =>{
+
     annotation_window = _window.create_window(500, 300, 500, 300, 500, 500, '../renderer/views/annotation_creator.html');
-    annotation_time = seek_time;
+    annotation_time = obj.time;
+    thumbnail = obj.thumbnail;
 
     // Catch close event of annotation window to allow new annotations to be opened from mainwindow
     annotation_window.on('close', function() { //   
@@ -101,9 +104,21 @@ ipcMain.on('open_annotation_window', (e, seek_time) =>{
 /**
  * Listen for annotation_time request
  */
+
+
 ipcMain.on('annotation_time_request', (e, f) => {
-  e.sender.send('annotation_time_response', annotation_time);
+  
+  var obj = {
+    time:annotation_time, 
+    thumbnail:thumbnail
+  };
+
+  e.sender.send('annotation_time_response', obj);
 });
+
+ipcMain.on('annotation_save_response', (e, f) =>{
+  main_window.webContents.send('annotation_save_response', f);
+})
 
 
 app.on('activate', function () {

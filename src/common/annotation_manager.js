@@ -51,54 +51,15 @@ exports.load_annotations = function(filename){
 exports.render_annotation = (item)=>{
 
 		$("#annotation-list").append(
-			`
-          	<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
-			    <div class="d-flex w-100 justify-content-between" >
-			      <h5 class="mb-1">${item.annotation_title}</h5>
-			      <small>${item.annotation_time}</small>
-			    </div>
-			    <p class="mb-1">${item.annotation_text}</p>
-			</a>	
-          	`);
+		
+		`
+		<li class="list-group-item" style="cursor:pointer;" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
+		    <img class="img-circle media-object pull-left" style="cursor:pointer;" src="${item.thumbnail}" width="32" height="32">
+		    <div style="cursor:pointer;" class="media-body">
+		      <strong style="cursor:pointer;">${item.annotation_title}</strong><small style="cursor:pointer;" class="pull-right">${item.annotation_time}</small>
+		      <p style="cursor:pointer;">${item.annotation_text}</p>
+		    </div>
+		  </li>
+        `);
 }
 
-
-
-
-/**
- * annotation_save_request Listener
- */
-ipcRenderer.on('annotation_save_request', (e, annotation)=>{
-
-  // Save annotation in seperate file
-  save_annotation(annotation, filename);
-  
-  // update annotation list on video
-  //TODO: empty annotation list in html
-  //TODO: insert annotation in the list while sorting
-  //TODO: display annotation list in html
-  //TODO: create smart insertion method to insert to html without recreating everything
-  render_annotation(annotation);
-
-});
-
-/**
- * Saves a given annotation to the given filename. If other annotations in the filename are already present, the annotation is simply appended. Sorting on every load is acknowledged, but for simplicity this model is enough. Another storage model might be more fitting in case the uses of this application evolve into something more complex.
- * @param  {Annotation} annotation
- * @param  {String} filename  
- * @return {void}       
- */
-function save_annotation(annotation, filename){
-
-	var concatenated_annotation = JSON.stringify(annotation) + "\`";
-
-	fs.appendFile(filename, concatenated_annotation, function (err) {
-
-		if(err){
-			//TODO: display error on failure of writing new annotation to file
-		}else{
-			//TODO: display success toast
-		}
-
-	});
-}

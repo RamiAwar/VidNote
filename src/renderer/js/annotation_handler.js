@@ -10,6 +10,8 @@ $ = require('jquery');
 let fs = require('fs');
 var filename = 'test.anot';
 
+
+
 /**
  * This allows current window access and window management (client side)
  */
@@ -17,6 +19,7 @@ var filename = 'test.anot';
 
 let annotation_time = -1.1;
 let annotation_text = "";
+var imageURL;
 
 let not_sent = true;
 
@@ -24,8 +27,10 @@ let not_sent = true;
 ipcRenderer.send('annotation_time_request', 1);
 
 // Receive annotation_time 
-ipcRenderer.on('annotation_time_response', (event, seek_time)=>{
-	annotation_time = seek_time;
+ipcRenderer.on('annotation_time_response', (event, obj) => {
+	annotation_time = obj.time;
+	imageURL = obj.thumbnail;
+
 });
 
 /**
@@ -38,12 +43,12 @@ function add_annotation(){
 	annotation_text = $('#annotation-text').val();
 	console.log(annotation_text);
 
+
 	// Make sure user has entered an annotation to save
 	if(annotation_text !== "" && annotation_time != -1.1 && not_sent){
-		
-		// Issue event request to save the annotation server side
-		let a = new Annotation(annotation_title, annotation_text, annotation_time);
 
+		// Issue event request to save the annotation server side
+		let a = new Annotation(annotation_title, annotation_text, annotation_time, imageURL);
 		save_annotation(a, filename);
 
 		//TODO: Disable button input
@@ -52,6 +57,8 @@ function add_annotation(){
 
 	}
 }
+
+
 
 /**
  * Disable all inputs while waiting for result of saving annotation.
@@ -89,12 +96,16 @@ function handle_failure(){
 
 }
 
+
+//TODO: move this to annotation_manager
 /**
  * Append currently added annotation to the corresponding .anot file
  * @param  {Annotation} annotation Annotation object
  * @param  {String} filename   .anot file name
  */
 function save_annotation(annotation, filename){
+	console.log('presave');
+	console.log(annotation);
 	var concatenated_annotation = JSON.stringify(annotation) + "\`";
 	fs.appendFile(filename, concatenated_annotation, function (err) {
 	if (err) {
@@ -102,8 +113,8 @@ function save_annotation(annotation, filename){
 	  throw err;
 	}else{
 	  console.log("Success");
-	  handle_success();
 	  ipcRenderer.send('annotation_save_response', annotation);
+	  handle_success();
 	}
 
 	});

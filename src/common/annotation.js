@@ -13,11 +13,14 @@ class Annotation{
 	 * @param  {Float} video_time      Time of the annotation in the video.
 	 * @return {void}                 
 	 */
-	constructor(annotation_title, annotation_text, annotation_time){
+	constructor(annotation_title, annotation_text, annotation_time, thumbnail){
 		this.annotation_title = annotation_title;
 		this.annotation_text = annotation_text;
 		this.annotation_time = annotation_time;
+		this.thumbnail = thumbnail;
 	}
+
+
 
 }
 

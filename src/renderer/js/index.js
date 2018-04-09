@@ -14,6 +14,11 @@ $ = require('jquery');
 const manager = require('../../common/annotation_manager.js');
 manager.annotation_list = (manager.load_annotations('test.anot')) || [];
 
+var scale = 1;
+var canvas = document.createElement("canvas");
+canvas.width = 200;
+canvas.height = 200;
+
 /**
  * Append elements to annotation list if nonempty
  */
@@ -39,7 +44,14 @@ function open_annotation_window(){
 	// Send video annotation time into the annotation manager
 
 	let vid = document.querySelector('video');
-	ipcRenderer.send('open_annotation_window', vid.currentTime);
+	let imageURL = getImageURL(vid);
+	//console.log(imageURL);
+	var obj = {
+		time: vid.currentTime,
+		thumbnail: imageURL
+	};
+
+	ipcRenderer.send('open_annotation_window', obj);
 
 
 	// Prevent submission of new annotations until current one is saved or discarded
@@ -50,7 +62,7 @@ function open_annotation_window(){
 
 // Listen for async message from renderer process
 ipcRenderer.on('annotation_save_response', (event, arg) => {  
-    
+    console.log("Saved annot");
     // Allow submission of new annotations
     if(arg) {
     	$("#add-annotation-button").prop('disabled', false);
@@ -63,3 +75,9 @@ ipcRenderer.on('annotation_window_closed', (e, f)=>{
 	console.log('OK');
 	$("#add-annotation-button").prop('disabled', false);
 })
+
+function getImageURL(video){
+
+	canvas.getContext('2d').drawImage(video, 0, 0, 200, 200);
+	return canvas.toDataURL();
+}
