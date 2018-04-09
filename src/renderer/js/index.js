@@ -37,10 +37,10 @@ function open_annotation_window(){
 	
 
 	// Send video annotation time into the annotation manager
-	if(can_submit){
-		let vid = document.querySelector('video');
-		ipcRenderer.send('open_annotation_window', vid.currentTime);
-	}
+
+	let vid = document.querySelector('video');
+	ipcRenderer.send('open_annotation_window', vid.currentTime);
+
 
 	// Prevent submission of new annotations until current one is saved or discarded
 	$("#add-annotation-button").prop('disabled', true);

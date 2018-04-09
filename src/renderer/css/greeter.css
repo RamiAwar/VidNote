@@ -51,6 +51,12 @@ h1{
   opacity:0.1;
 }
 
+.window{
+	border-bottom:0.5px solid #eee;
+	border-right:0.5px solid #eee;
+	border-left:0.5px solid #eee;
+}
+
 #logo-pane{
 	display:block;
 	justify-content: center;
@@ -86,10 +92,9 @@ h1{
 }
 
 #next{
-	position:absolute;
-	top:80%;
+
 	display:inline-block;
-	opacity:1;
+	opacity:0;
 	background: url(../../static/svgs/check-circle.svg);
 	color:green;
 	margin-left:10%;
@@ -98,9 +103,12 @@ h1{
 	width:3em;
 	height:3em;
 
-	align-items:center;
+	align-items: center;
 
 }
+
+
+
 
 @keyframes pulse_animation {
     0% { transform: scale(1); }

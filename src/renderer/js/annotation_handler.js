@@ -5,7 +5,7 @@
  * @copyright MIT License
  */
 
-const {ipcRenderer} = require('electron');
+const {remote, ipcRenderer} = require('electron');
 $ = require('jquery');
 let fs = require('fs');
 var filename = 'test.anot';
@@ -13,7 +13,6 @@ var filename = 'test.anot';
 /**
  * This allows current window access and window management (client side)
  */
-const remote = require('electron').remote;
 
 
 let annotation_time = -1.1;

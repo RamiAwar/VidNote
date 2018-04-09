@@ -54,7 +54,6 @@ if(DEV){
 app.on('ready', ()=>{
   
   greeter_window = _window.create_window(400,250,400,250,400,250, '../renderer/views/greeter.html');
-  //main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');  
   
 });
 
@@ -73,6 +72,16 @@ app.on('window-all-closed', function () {
 /**
  * Event handling
  */
+
+
+ipcMain.on('open_main_window', (e, namepath) =>{
+
+    main_window = _window.create_window(1000, 1000, 500, 500, 1500, 1200, '../renderer/views/index.html');
+    main_window.on('closed', ()=>{
+      app.relaunch();
+      app.quit();
+    })
+});
 
 
 /**

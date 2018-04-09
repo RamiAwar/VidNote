@@ -4,87 +4,73 @@
 
     <meta charset="UTF-8">
     <title>VidNote</title>
-    <link rel="stylesheet" href="../../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="../../../bower_components/bootstrap4/dist/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/photon.min.css"/>
     <link rel="stylesheet" href="../css/index.css">
 
   </head>
   <body>
+
+     <div class="window content">
+       
+       <header class="toolbar toolbar-header">
+         <div class="title-bar">
+           <span class="fa-stack">
+            <i class="fa fa-stack-1x fa-circle" id="close-circle"></i>
+            <i class="fa fa-stack-1x fa-times-circle"></i>
+          </span>
+          
+          <span class="fa-stack">
+            <i class="fa fa-stack-1x fa-circle" id="minimize-circle"></i>
+            <i class="fa fa-stack-1x fa-minus-circle"></i>
+          </span>
+
+          <h1 class="title">VidNote</h1>
+         </div>
+       </header>
+
+       <div class="window-content">
+         
+         <div class="pane-group">
+           
+           <div class="container-fluid">
+
+            <div class="jumbotron" >
+
+              <div id="video-container" class="col-lg-6 col-md-8 col-sm-12">
+                
+                <div class="row">
+                  <video width="100%" src="../../static/videos/test.mp4" controls>
+                  </video>
+                </div>
+
+                <div class="row">
+                  <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
+                </div>
+
+              </div>
+
+              <div class="col-lg-6 col-md-4" id="annotation-list-container">
+                <div id="annotation-list" class="list-group">
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+         </div>
+       </div>
+     </div>
+
+
+
     
     <!-- TODO: Make a responsive sidebar upon resize -->
 
-    <div class="container-fluid">
-
-      <div class="jumbotron" >
-
-        <div id="video-container" class="col-lg-6 col-md-8 col-sm-12">
-          
-          <div class="row">
-            <video width="100%" src="../../static/videos/test.mp4" controls>
-            </video>
-          </div>
-
-          <div class="row">
-            <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
-          </div>
-
-        </div>
-
-        <div class="col-lg-6 col-md-4" id="annotation-list-container">
-          <div id="annotation-list" class="list-group">
-          </div>
-        </div>
-
-
-      </div>
-    </div>
-
     <script>
-      require('../js/index');
+      require('../js/index.js');
     </script>
-
-     <!--  <script>
-        
-        let vid = document.querySelector("video");
-        console.log(vid.currentTime);
-        vid.currentTime = 20;
-
-        // vid.addEventListener("seeked", ()=>{
-        //     vid.play(); 
-        // }, true);
-        // 
-        
-        function annotate(){
-          //TODO: Send event to main to open annotation window 
-        }
-
-        // EVT_RECEIVED: New item successfully fetched
-          // ipcRenderer.on('new_item_ready', (e, new_item) =>{
-
-          //   close_modal_disabled = false;
-
-          //   if(new_item === "error"){
-
-          //     // Add danger component to input class
-          //     $('#item-input').addClass('is-danger');
-          //     $('#url_error').removeClass('is-invisible');
-              
-          //   }else{
-          //     // New item fetched successfully
-          //     // Add to main list
-          //     items.items.push(new_item);
-          //     items.save_items();
-          //     items.add_item_html(new_item);
-
-          //   }
-
-          //   // Close and reset moda
-          //   finished_loading_modal();
-
-          // });
-
-      </script> -->
-
 
   </body>
 </html>

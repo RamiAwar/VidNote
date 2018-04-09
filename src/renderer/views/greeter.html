@@ -9,18 +9,6 @@
 </head>
 <body>
 
-	<!-- <div id="input_wrapper">	
-		<div id="input_placeholder" onclick="document.querySelector('#input').click();">Choose File</div>
-		<input id="input_file" type="file" accept="video/*" class="form-control">
-		<div id="feedback"></div>
-	</div>
-
-	<div id="filename"></div>
-
-	<div id="button_wrapper">
-		<button class="button" type="submit">Start Annotating</button>
-	</div> -->
-
 	<div class="window content">
 
       <!-- .toolbar-header sits at the top of your app -->
@@ -65,32 +53,8 @@
 
 
 <script>
-	$ = require('jquery')
-	const {TweenMax} = require('gsap')
+	
 	require('../js/greeter.js')
-
-	text_container = $('.text-container')[0];
-	TweenMax.to(text_container, 0, {x:40, y:0, rotation:0});
-	TweenMax.to($('#next')[0] , 0, {x:0, y:-50%, rotation:0});
-
-	$('#input_file').change(function(){
-		const {name, path} = $('#input_file')[0].files[0];
-
-		TweenMax.to($('#next'), 1, {opacity:1, ease:Linear.easeNone});
-		TweenMax.to(text_container, 1, {x:0, y:0, rotation:0, ease:Power0.easeIn});
-		TweenMax.to($('#next'), 1, {fill:'#e00', ease:Strong.easeIn});
-
-		// TweenMax.to(box, 2, {left:"700px", repeat:-1, yoyo:true, onRepeat:onRepeat, repeatDelay:0, ease:Linear.easeNone});
-
-		// function onRepeat() {
-		//   count++;
-		//   box.innerHTML = count;
-		//   TweenLite.set(box, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
-		// }		
-	});
-
-
-
 
 </script>
 
