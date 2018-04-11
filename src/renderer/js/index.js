@@ -5,7 +5,7 @@
  * @copyright MIT License
  */
 
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 $ = require('jquery');
 
 /**
@@ -19,6 +19,9 @@ var canvas = document.createElement("canvas");
 canvas.width = 200;
 canvas.height = 200;
 
+var video_name;
+var video_path;
+
 /**
  * Append elements to annotation list if nonempty
  */
@@ -30,6 +33,8 @@ if(manager.annotation_list.length){
  * Attaching click listener to button
  */
 $("#add-annotation-button").click(open_annotation_window);
+$('#finished-button').click(close_main_window);
+
 
 /**
  * Called when new annotation is requested
@@ -45,7 +50,7 @@ function open_annotation_window(){
 
 	let vid = document.querySelector('video');
 	let imageURL = getImageURL(vid);
-	//console.log(imageURL);
+
 	var obj = {
 		time: vid.currentTime,
 		thumbnail: imageURL
@@ -58,6 +63,19 @@ function open_annotation_window(){
 	$("#add-annotation-button").prop('disabled', true);
 
 }
+
+
+ipcRenderer.on('video:path', (e, a)=>{
+	
+	// Destructuring object
+	({video_name, video_path} = a);
+
+	// Set video src to path and window title to video name
+	$('#title')[0].innerHTML = "VidNote - " + video_name; 
+	$('#video')[0].src = video_path;
+	
+
+})
 
 
 // Listen for async message from renderer process
@@ -74,10 +92,15 @@ ipcRenderer.on('annotation_save_response', (event, arg) => {
 ipcRenderer.on('annotation_window_closed', (e, f)=>{
 	console.log('OK');
 	$("#add-annotation-button").prop('disabled', false);
-})
+});
 
 function getImageURL(video){
 
 	canvas.getContext('2d').drawImage(video, 0, 0, 200, 200);
 	return canvas.toDataURL();
+}
+
+function close_main_window(){
+	var current_window = remote.getCurrentWindow();
+   	current_window.close(); 
 }

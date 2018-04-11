@@ -16,9 +16,9 @@ $('#input_file').change(function(){
 	
 	video_chosen = true;
 
-	const{n, p} = $('#input_file')[0].files[0];
-	name = n;
-	path = p;
+	// Destructuring object assignment without declaration syntax
+	({name, path} = $('#input_file')[0].files[0]);
+	
 
 	TweenMax.to($('#next'), 1, {opacity:1, ease:Linear.easeNone});
 
@@ -41,9 +41,11 @@ $('#next').click(function(){
 	
 	if(video_chosen){
 
+		var a = {name:name, path:path};
+
 		console.log(name, path)
 		var current_window = remote.getCurrentWindow();
-		ipcRenderer.send('open_main_window', path);
+		ipcRenderer.send('open_main_window', a);
 		current_window.hide();
 
 	}

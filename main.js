@@ -34,8 +34,9 @@ var thumbnail;
 
 
 //TODO: read video file name and then concatenate it with .anot extension
-var filename = "test.anot";
-
+var filename;
+var video_path;
+var video_name;
 
 
 
@@ -75,13 +76,19 @@ app.on('window-all-closed', function () {
  */
 
 
-ipcMain.on('open_main_window', (e, namepath) =>{
-
+ipcMain.on('open_main_window', (e, a) =>{
+    video_name = a.name;
+    video_path = a.path;
     main_window = _window.create_window(900, 450, 900, 450, 900, 450, '../renderer/views/index.html');
     main_window.on('closed', ()=>{
-      app.relaunch();
-      app.quit();
+      greeter_window.reload();
+      greeter_window.show();
     })
+    main_window.once('ready-to-show', function(){
+      var a = {video_name:video_name, video_path:video_path};
+      main_window.webContents.send('video:path', a);
+    })
+
 });
 
 

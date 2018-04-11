@@ -26,7 +26,7 @@
             <i class="fa fa-stack-1x fa-minus-circle"></i>
           </span>
 
-          <h1 class="title">VidNote</h1>
+          <h1 id="title" class="title">VidNote</h1>
          </div>
        </header>
 
@@ -39,14 +39,9 @@
               <div id="video-container" class="col-lg-6 col-md-8 col-sm-12">
                 
                 <div class="row">
-                  <video width="100%" src="../../static/videos/test.mp4" controls>
+                  <video id="video" width="100%" src="#" controls>
                   </video>
                 </div>
-
-                <div class="row">
-                  <button id="add-annotation-button" class="btn btn-primary">Annotate Here</button>
-                </div>
-
               </div>
 
           </div>
@@ -56,8 +51,19 @@
           </div>
 
         </div>
-
       </div>
+    <footer class="toolbar toolbar-footer">
+      <div class="toolbar-actions">
+        
+        <button id="finished-button" class="btn btn-large btn-default">
+          Done
+        </button>
+
+        <button id="add-annotation-button" class="btn btn-large btn-primary pull-right">
+          New Annotation
+        </button>
+      </div>
+    </footer>
     </div>
         
 

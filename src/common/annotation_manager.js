@@ -9,6 +9,7 @@
 
 const {ipcRenderer} = require('electron');
 let fs = require('fs');
+const moment = require('moment');
 
 exports.annotation_list = [];
 
@@ -50,13 +51,19 @@ exports.load_annotations = function(filename){
  */
 exports.render_annotation = (item)=>{
 
+		var m = moment().hours(0).minutes(0).seconds(0).add(item.annotation_time, 'seconds');
+		console.log(m);
+		console.log(item.annotation_time)
+		var time_string = m.format("HH:mm:ss");
+		console.log(time_string)
+
 		$("#annotation-list").append(
 		
 		`
 		<li class="list-group-item" style="cursor:pointer;" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
 		    <img class="img-circle media-object pull-left" style="cursor:pointer;" src="${item.thumbnail}" width="32" height="32">
 		    <div style="cursor:pointer;" class="media-body">
-		      <strong style="cursor:pointer;">${item.annotation_title}</strong><small style="cursor:pointer;" class="pull-right">${item.annotation_time}</small>
+		      <strong style="cursor:pointer;">${item.annotation_title}</strong><small style="cursor:pointer;" class="pull-right">${time_string}</small>
 		      <p style="cursor:pointer;">${item.annotation_text}</p>
 		    </div>
 		  </li>
