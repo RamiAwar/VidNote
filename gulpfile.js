@@ -7,9 +7,10 @@ gulp.task('doc', function (cb) {
         .pipe(jsdoc(config, cb));
 });
 
-gulp.task('watch', function() {
+gulp.task('watch-docs', function() {
   gulp.watch('./main.js', ['doc']);
   gulp.watch('./src/**/*.js', ['doc']);
   gulp.watch('./README.md', ['doc']);
   gulp.watch('./docs/jsdoc_config.json', ['doc']);
 });
+

@@ -9,7 +9,7 @@
 /**
  * @var {Boolean} DEV Development-mode on : enables electron reload and logging messages.
  */
-var DEV = false;
+var DEV = true;
 
 /**
  * Setup
@@ -79,7 +79,7 @@ app.on('window-all-closed', function () {
 ipcMain.on('open_main_window', (e, a) =>{
     video_name = a.name;
     video_path = a.path;
-    main_window = _window.create_window(900, 450, 900, 450, 900, 450, '../renderer/views/index.html');
+    main_window = _window.create_window(900, 600, 900, 600, 900, 600, '../renderer/views/index.html');
     main_window.on('closed', ()=>{
       greeter_window.reload();
       greeter_window.show();

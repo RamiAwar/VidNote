@@ -7,6 +7,7 @@
 
 const {ipcRenderer, remote} = require('electron');
 $ = require('jquery');
+const player = require('./player.js');
 
 /**
  * Read already available annotation file (if available) else initialize to empty array
@@ -14,13 +15,17 @@ $ = require('jquery');
 const manager = require('../../common/annotation_manager.js');
 manager.annotation_list = (manager.load_annotations('test.anot')) || [];
 
-var scale = 1;
-var canvas = document.createElement("canvas");
-canvas.width = 200;
-canvas.height = 200;
+
+var canvas = document.getElementById("canvas");
 
 var video_name;
 var video_path;
+
+
+/**
+ * Initialize canvas listeners to draw selection region
+ */
+player.initialize_canvas_video();
 
 /**
  * Append elements to annotation list if nonempty
@@ -48,7 +53,6 @@ function open_annotation_window(){
 
 	// Send video annotation time into the annotation manager
 
-	let vid = document.querySelector('video');
 	let imageURL = getImageURL(vid);
 
 	var obj = {
@@ -104,3 +108,5 @@ function close_main_window(){
 	var current_window = remote.getCurrentWindow();
    	current_window.close(); 
 }
+
+
