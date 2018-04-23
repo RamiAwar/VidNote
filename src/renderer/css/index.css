@@ -87,7 +87,36 @@ video{
 	cursor:pointer;
 }
 
-.slider {
+.volume-slider{
+	-webkit-appearance: none;
+    height: 8px;
+    border-radius: 2px;   
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.volume-slider::-webkit-slider-thumb{
+	-webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; 
+    border:0.5px solid #777;
+    background: #eee;
+    box-shadow: 0px 0px 1px #000;
+    cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-runnable-track{
+	-webkit-appearance: none;
+	margin-top:-1px;
+	color:#aa4444;
+}
+
+.seeker-slider{
     -webkit-appearance: none;
     width: 60%;
     height: 8px;
@@ -97,45 +126,53 @@ video{
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
-    overflow:hidden;
 }
 
-.slider::-webkit-slider-thumb {
+.seeker-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%; 
-    background: #4CAF50;
+    border:0.5px solid #777;
+    background: #eee;
+    box-shadow: 0px 0px 1px #000;
     cursor: pointer;
-    box-shadow:-100px 0 0 100px #aa4444;
 }
 
-.slider::-webkit-slider-runnable-track{
+.seeker-slider::-webkit-slider-runnable-track{
 	-webkit-appearance: none;
 	margin-top:-1px;
 	color:#aa4444;
 }
 
-.slider::-moz-range-thumb {
+.seeker-slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
 }
-/*
 
-    
-    
-    input[type='range']::-webkit-slider-thumb {
-      width: 10px;
-      -webkit-appearance: none;
-      height: 10px;
-      cursor: ew-resize;
-      background: #434343;
-      box-shadow: -80px 0 0 80px #43e5f7;
-    }
-
+.player-button{
+	background-color: transparent; /* Green */
+    border: none;
+    color: #5d5d5d;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
 }
-*/
+
+.player-button *{
+	cursor:pointer;
+}
+
+.player-button:focus{
+	outline:none;
+}
+
+*:focus{
+	outline:none;
+}

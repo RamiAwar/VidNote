@@ -8,9 +8,16 @@ video_container = {  // we will add properties as needed
 
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext('2d');
-var rect = {};
 var dragging = false;
 
+
+// Buttons
+var play_button = document.getElementById("play-pause");
+var mute_button = document.getElementById("mute");
+
+// Sliders
+var seekBar = document.getElementById("seek-bar");
+var volumeBar = document.getElementById("volume-bar");
 
 exports.initialize_canvas_video = function(){
 
@@ -32,15 +39,16 @@ exports.initialize_canvas_video = function(){
 		var $this = this; //cache
 	    (function loop() {
 	      if (!$this.paused && !$this.ended) {
-	        ctx.drawImage($this, 0, 0);
+	        ctx.drawImage($this, 0, 0, canvas.width, canvas.height);
+	        seekBar.
 	        requestAnimationFrame(loop); 
-	      }
+	      }	
 	    })();
 
 	}, 0);
+
+	
 }
-
-
 
 function mouse_down(e){
 	rect.start_x = e.pageX - canvas.offsetLeft;
@@ -85,6 +93,7 @@ function toggle_play_pause(){
           }else{
                 video_container.video.pause();
           }
+          toggle_play(play_button);
      }
 }
 
@@ -110,10 +119,9 @@ function updateCanvas(){
         var top = canvas.height / 2 - (vidH /2 ) * scale;
         var left = canvas.width / 2 - (vidW /2 ) * scale;
         // now just draw the video the correct size
-        ctx.drawImage(video_container.video, left, top, vidW * scale, vidH * scale);
+        ctx.drawImage(video_container.video, 0, 0, canvas.width, canvas.height);
         if(video_container.video.paused){ // if not playing show the paused screen 
             drawPlayIcon();
-            console.log("jkk");
         }
     }
     // all done for display 
@@ -121,3 +129,140 @@ function updateCanvas(){
     requestAnimationFrame(updateCanvas);
 }
 
+//Video player controls
+
+
+$(document).keypress('space', function(){
+	play_button.click();
+})
+
+
+// Event listener for the play/pause button
+play_button.addEventListener("click", function() {
+  if (video.paused == true) {
+    // Play the video
+    video.play();
+    
+  } else {
+    // Pause the video
+    video.pause();
+  }
+  toggle_play(play_button);
+});
+
+// Event listener for the mute button
+mute_button.addEventListener("click", function() {
+  if (video.muted == false) {
+
+    // Mute the video
+    video.muted = true;
+
+  } else {
+
+    // Unmute the video
+    video.muted = false;
+  }
+  toggle_mute();
+
+});
+
+// Event listener for the seek bar
+seekBar.addEventListener("change", function() {
+	
+	// Calculate the new time
+	var time = video.duration * (seekBar.value / 100);
+
+	// Update the video time
+	video.currentTime = time;
+});
+
+// Update the seek bar as the video plays
+video.addEventListener("timeupdate", function() {
+  // Calculate the slider value
+  var value = (100 / video.duration) * video.currentTime;
+
+  // Update the slider value
+  seekBar.value = value;
+
+
+  update_seekbar();
+
+});
+
+// Pause the video when the slider handle is being dragged
+seekBar.addEventListener("mousedown", function() {
+  video.pause();
+});
+
+// Play the video when the slider handle is dropped
+seekBar.addEventListener("mouseup", function() {
+  video.play();
+});
+
+// Event listener for the volume bar
+volumeBar.addEventListener("change", function() {
+  // Update the video volume
+  video_container.video.volume = volumeBar.value/100;
+});
+
+// Slider styling
+
+$('#seek-bar').on("change mousemove", function () {
+
+    update_seekbar();
+});
+
+$('.volume-slider').on("change mousemove", function () {
+
+    update_volume_slider();
+
+});
+
+function toggle_mute(){
+	if(video.muted){
+		//set icon to muted
+		$('#mute-icon').removeClass('fa-volume-up');
+		$('#mute-icon').addClass('fa-volume-off');
+	}else{
+		//set icon to mutable
+		$('#mute-icon').addClass('fa-volume-up');
+		$('#mute-icon').removeClass('fa-volume-off');
+	}
+}
+
+function toggle_play(){
+	if(video_container.video.paused){
+		//set icon to playable
+		$('#play-icon').removeClass('fa-pause');
+		$('#play-icon').addClass('fa-play');
+	}else{
+		//set icon to pausable
+		$('#play-icon').addClass('fa-pause');
+		$('#play-icon').removeClass('fa-play');
+	}
+
+}
+
+function update_seekbar(){
+
+	var val = ($('#seek-bar').val() - $('#seek-bar').attr('min')) / ($('#seek-bar').attr('max') - $('#seek-bar').attr('min'));
+    
+    $('#seek-bar').css('background-image',
+                '-webkit-gradient(linear, left top, right top, '
+                + 'color-stop(' + val + ', #6297f8), '
+                + 'color-stop(' + val + ', #aaa)'
+                + ')'
+                );
+}
+
+function update_volume_slider(){
+
+	var val = ($('.volume-slider').val() - $('.volume-slider').attr('min')) / ($('.volume-slider').attr('max') - $('.volume-slider').attr('min'));
+    
+    $('.volume-slider').css('background-image',
+                '-webkit-gradient(linear, left top, right top, '
+                + 'color-stop(' + val + ', #6297f8), '
+                + 'color-stop(' + val + ', #aaa)'
+                + ')'
+                );
+}
