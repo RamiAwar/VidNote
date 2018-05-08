@@ -24,16 +24,7 @@ $('#input_file').change(function(){
 
 	$('#next').css('cursor', 'pointer');
 
-	TweenMax.to(text_container, 1, {x:0, y:0, rotation:0, ease:Power0.easeIn});
-
-
-	// TweenMax.to(box, 2, {left:"700px", repeat:-1, yoyo:true, onRepeat:onRepeat, repeatDelay:0, ease:Linear.easeNone});
-
-	// function onRepeat() {
-	//   count++;
-	//   box.innerHTML = count;
-	//   TweenLite.set(box, {backgroundColor:"hsl(" + Math.random() * 255 + ", 90%, 60%)"});
-	// }		
+	TweenMax.to(text_container, 1, {x:0, y:0, rotation:0, ease:Power0.easeIn});		
 
 });
 

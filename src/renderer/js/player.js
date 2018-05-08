@@ -1,7 +1,8 @@
 
 let video = document.querySelector('video');
 
-video_container = {  // we will add properties as needed
+// Temporary object to house multiple video related variables every session, maybe turn into class if gets too big
+video_container = {
      video : video,
      ready : false,   
 };
@@ -41,7 +42,8 @@ exports.initialize_canvas_video = function(){
 	    (function loop() {
 	      if (!$this.paused && !$this.ended) {
 	        ctx.drawImage($this, 0, 0, canvas.width, canvas.height);
-	        seekBar.
+	        //TODO: ???
+          //seekBar.
 	        requestAnimationFrame(loop); 
 	      }	
 	    })();
@@ -105,6 +107,9 @@ function video_ready(event){ // this is a referance to the video
     video_container.ready = true;
     // the video can be played so hand it off to the display function
     requestAnimationFrame(updateCanvas);
+
+    seekBar.value = 0;
+    update_seekbar();
 }
 
 function updateCanvas(){
@@ -253,6 +258,7 @@ function update_seekbar(){
                 + ')'
                 );
 }
+
 
 function update_volume_slider(){
 

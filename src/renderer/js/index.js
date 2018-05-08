@@ -13,8 +13,6 @@ const player = require('./player.js');
  * Read already available annotation file (if available) else initialize to empty array
  */
 const manager = require('../../common/annotation_manager.js');
-manager.annotation_list = (manager.load_annotations('test.anot')) || [];
-
 
 var canvas = document.getElementById("canvas");
 var video = document.getElementById("video");
@@ -27,12 +25,7 @@ var video_path;
  */
 player.initialize_canvas_video();
 
-/**
- * Append elements to annotation list if nonempty
- */
-if(manager.annotation_list.length){
-	manager.annotation_list.forEach(manager.render_annotation);
-}
+
 
 /**
  * Attaching click listener to button
@@ -77,7 +70,18 @@ ipcRenderer.on('video:path', (e, a)=>{
 	// Set video src to path and window title to video name
 	$('#title')[0].innerHTML = "VidNote - " + video_name; 
 	$('#video')[0].src = video_path;
-	
+
+	//pass annotation file name
+	manager.filename = video_path + '.anot';
+	console.log(manager.filename)
+	manager.annotation_list = (manager.load_annotations(manager.filename)) || [];
+
+	/**
+	 * Append elements to visual annotation list if nonempty
+	 */
+	if(manager.annotation_list.length){
+		manager.annotation_list.forEach(manager.render_annotation);
+	}
 
 })
 

@@ -79,15 +79,15 @@ app.on('window-all-closed', function () {
 ipcMain.on('open_main_window', (e, a) =>{
     video_name = a.name;
     video_path = a.path;
-    main_window = _window.create_window(900, 600, 900, 600, 900, 600, '../renderer/views/index.html');
+    main_window = _window.create_window(950, 600, 950, 600, 950, 600, '../renderer/views/index.html');
     main_window.on('closed', ()=>{
       greeter_window.reload();
       greeter_window.show();
-    })
+    });
     main_window.once('ready-to-show', function(){
       var a = {video_name:video_name, video_path:video_path};
       main_window.webContents.send('video:path', a);
-    })
+    });
 
 });
 

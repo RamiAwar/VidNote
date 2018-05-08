@@ -14,7 +14,7 @@ const moment = require('moment');
 exports.annotation_list = [];
 
 
-var filename = 'test.anot';
+exports.filename = '';
 
 
 
@@ -40,9 +40,35 @@ exports.load_annotations = function(filename){
 		parsed_array.push(JSON.parse(array[i]));	
 	}
 
+	console.log(parsed_array[0])
+
 	return parsed_array;
 
 }
+
+
+/**
+ * Append currently added annotation to the corresponding .anot file
+ * @param  {Annotation} annotation Annotation object
+ * @param  {String} filename   .anot file name
+ */
+function save_annotation(annotation, filename){
+
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+	fs.appendFile(filename, concatenated_annotation, function (err) {
+	if (err) {
+	  handle_failure();
+	  throw err;
+	}else{
+	  console.log("Success");
+	  ipcRenderer.send('annotation_save_response', annotation);
+	  handle_success();
+	}
+
+	});
+}
+
+
 
 /**
  * Renders a given annotation object to the annotation list in index.html

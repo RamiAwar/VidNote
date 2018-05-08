@@ -71,6 +71,7 @@ h1{
 #video-container{
 	display:inline-block;
 	align-items:center;
+	width:100%;
 }
 
 video{
