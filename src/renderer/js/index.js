@@ -17,7 +17,7 @@ manager.annotation_list = (manager.load_annotations('test.anot')) || [];
 
 
 var canvas = document.getElementById("canvas");
-
+var video = document.getElementById("video");
 var video_name;
 var video_path;
 
@@ -53,10 +53,10 @@ function open_annotation_window(){
 
 	// Send video annotation time into the annotation manager
 
-	let imageURL = getImageURL(vid);
+	let imageURL = getImageURL(canvas);
 
 	var obj = {
-		time: vid.currentTime,
+		time: video.currentTime,
 		thumbnail: imageURL
 	};
 

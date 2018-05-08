@@ -18,6 +18,7 @@ var mute_button = document.getElementById("mute");
 // Sliders
 var seekBar = document.getElementById("seek-bar");
 var volumeBar = document.getElementById("volume-bar");
+update_volume_slider();
 
 exports.initialize_canvas_video = function(){
 
@@ -47,7 +48,6 @@ exports.initialize_canvas_video = function(){
 
 	}, 0);
 
-	
 }
 
 function mouse_down(e){
@@ -71,12 +71,12 @@ function toggle_play_pause(e){
 function drawPlayIcon(e){
 
     ctx.fillStyle = "black";  // darken display
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 0.3;
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = "#DDD"; // colour of play icon
     ctx.globalAlpha = 0.75; // partly transparent
     ctx.beginPath(); // create the path for the icon
-    var size = (canvas.height / 3) * 0.5;  // the size of the icon
+    var size = (canvas.height / 3) * 0.3;  // the size of the icon
     ctx.moveTo(canvas.width/2 + size/3, canvas.height / 2); // start at the pointy end
     ctx.lineTo(canvas.width/2 - size/3, canvas.height / 2 + size/2);
     ctx.lineTo(canvas.width/2 - size/3, canvas.height / 2 - size/2);
@@ -130,8 +130,6 @@ function updateCanvas(){
 }
 
 //Video player controls
-
-
 $(document).keypress('space', function(){
 	play_button.click();
 })
@@ -194,10 +192,11 @@ seekBar.addEventListener("mousedown", function() {
   video.pause();
 });
 
+
 // Play the video when the slider handle is dropped
-seekBar.addEventListener("mouseup", function() {
-  video.play();
-});
+// seekBar.addEventListener("mouseup", function() {
+//   video.play();
+// });
 
 // Event listener for the volume bar
 volumeBar.addEventListener("change", function() {

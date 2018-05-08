@@ -3,27 +3,71 @@
   <head>
     <meta charset="UTF-8">
     <title>Annotation Creator</title>
-    <link rel="stylesheet" href="../../../bower_components/bootstrap4/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/photon.min.css"/>
     <link rel="stylesheet" href="../css/annotation.css">
+    <link rel="stylesheet" href="../css/common_photon.css">
 
   </head>
   <body>
-   
-    <div class="jumbotron container form-group">
+    
+    <div class="window content">
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <div class="title-bar">
+          <span id="close_window_button" class="fa-stack">
+            <i class="fa fa-stack-1x fa-circle" id="close-circle"></i>
+            <i class="fa fa-stack-1x fa-times-circle"></i>
+          </span>
+          
+          <span id="minimize_window_button" class="fa-stack">
+            <i class="fa fa-stack-1x fa-circle" id="minimize-circle"></i>
+            <i class="fa fa-stack-1x fa-minus-circle"></i>
+          </span>
 
-        <label for="annotation-title">Annotation</label>
+          <h1 class="title">VidNote</h1>
         
-        <input id="annotation-title" placeholder="Annotation title" class="form-control">
-        <br>
-        <textarea class="form-control" id="annotation-text" placeholder="Annotation text"></textarea>
-        <br>
-        <button class="btn btn-primary" id="add-annotation" onclick="add_annotation()">Button</button>
+        </div>
+      </header>
+
+      <div class="window-content">
+         
+         <div class="pane-group">
+
+            <div class="pane">
+
+              <div class="jumbotron container form-group">
+
+                <label for="annotation-title">Annotation</label>
+                
+                <input id="annotation-title" placeholder="Annotation title" class="form-control">
+                <br>
+                <textarea class="form-control" id="annotation-text" placeholder="Annotation text"></textarea>
+                <br>
+                <button class="btn btn-primary" id="add-annotation" onclick="add_annotation()">Button</button>
 
 
-      </form>
+              </form>
 
-    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="toolbar toolbar-footer">
+      <div class="toolbar-actions">
+        
+        <button id="finished-button" class="btn btn-large btn-default">
+          Cancel
+        </button>
+
+        <button id="add-annotation-button" class="btn btn-large btn-primary pull-right">
+          Save
+        </button>
+      </div>
+    </footer>
+
+
 
     <script src="../../common/annotation.js"></script>
     <script src="../js/annotation_handler.js"></script>

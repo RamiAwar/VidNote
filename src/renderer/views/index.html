@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../../bower_components/components-font-awesome/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="../css/photon.min.css"/>
     <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/common_photon.css">
 
   </head>
   <body>
@@ -16,12 +17,12 @@
        
        <header class="toolbar toolbar-header">
          <div class="title-bar">
-           <span class="fa-stack">
+           <span id="close_window_button" class="fa-stack">
             <i class="fa fa-stack-1x fa-circle" id="close-circle"></i>
             <i class="fa fa-stack-1x fa-times-circle"></i>
           </span>
           
-          <span class="fa-stack">
+          <span id="minimize_window_button" class="fa-stack">
             <i class="fa fa-stack-1x fa-circle" id="minimize-circle"></i>
             <i class="fa fa-stack-1x fa-minus-circle"></i>
           </span>
@@ -90,6 +91,7 @@
 
     <script>
       require('../js/index.js');
+      require('../js/common_window_operations.js');
     </script>
 
   </body>

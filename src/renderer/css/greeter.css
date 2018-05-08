@@ -14,30 +14,6 @@ h1{
 	font-weight:100;
 }
 
-.title-bar{
-	display:flex; 
-	align-items: center;
-}
-
-.fa-times-circle{
-	font-size:1.1em !important;
-	color: #d05b55;
-	cursor:pointer;
-}
-
-.fa-minus-circle{
-	font-size:1.1em !important;
-	color: #e9bd43;
-	cursor:pointer;
-}
-
-#minimize-circle{
-	color:#895825;
-}
-
-#close-circle{
-	color:#6f271c;
-}
 
 .logo {
   margin:auto;
@@ -50,11 +26,7 @@ h1{
   opacity:0.1;
 }
 
-.window{
-	border-bottom:0.5px solid #eee;
-	border-right:0.5px solid #eee;
-	border-left:0.5px solid #eee;
-}
+
 
 #logo-pane{
 	display:block;
@@ -140,22 +112,6 @@ h1{
 	align-items:center;
 }
 
-.title{
-	-webkit-app-region: drag;
-	width:100%;
-	margin-right:3em;
-	text-align: center;
-}
-
-.content{
-	overflow:hidden;
-	border-radius:6px;
-}
-
-.window{
-	border-radius:6px;
-
-}
 
 #input_file{
 	display:none;
