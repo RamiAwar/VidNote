@@ -20,10 +20,12 @@ var video_name;
 var video_path;
 
 
+var window_size = remote.getCurrentWindow().getSize();
+
 /**
  * Initialize canvas listeners to draw selection region
  */
-player.initialize_canvas_video();
+player.initialize_canvas_video(window_size);
 
 
 
@@ -112,5 +114,18 @@ function close_main_window(){
 	var current_window = remote.getCurrentWindow();
    	current_window.close(); 
 }
+
+/* 
+	List highlighting
+*/
+var $thumbs = $('#annotation-list').click(function(e) {
+    e.preventDefault();
+    //run removeClass on every element
+    //if the elements are not static, you might want to rerun $('.thumbnail')
+    //instead of the saved $thumbs
+    $thumbs.removeClass('item-highlight');
+    //add the class to the currently clicked element (this)
+    $(this).addClass('item-highlight');
+});
 
 

@@ -1,4 +1,5 @@
 
+
 let video = document.querySelector('video');
 
 // Temporary object to house multiple video related variables every session, maybe turn into class if gets too big
@@ -21,7 +22,7 @@ var seekBar = document.getElementById("seek-bar");
 var volumeBar = document.getElementById("volume-bar");
 update_volume_slider();
 
-exports.initialize_canvas_video = function(){
+exports.initialize_canvas_video = function(window_size){
 
 	canvas.addEventListener('mousedown', mouse_down, false);
 	canvas.addEventListener('mouseup', mouse_up, false);
@@ -31,8 +32,10 @@ exports.initialize_canvas_video = function(){
 
 	// set canvas size = video size when known
 	video.addEventListener('loadedmetadata', function() {
-	  canvas.width = Math.min(video.videoWidth, 720);
-	  canvas.height = Math.min(video.videoHeight, 720/(video.videoWidth/video.videoHeight));
+
+	  canvas.width = window_size[0] - 250;
+	  canvas.height = (window_size[0] - 250)/(video.videoWidth/video.videoHeight);
+
 	});
 
 	video.oncanplay = video_ready;
@@ -105,6 +108,7 @@ function video_ready(event){ // this is a referance to the video
                          canvas.width / this.videoWidth, 
                          canvas.height / this.videoHeight); 
     video_container.ready = true;
+
     // the video can be played so hand it off to the display function
     requestAnimationFrame(updateCanvas);
 
@@ -187,7 +191,6 @@ video.addEventListener("timeupdate", function() {
   // Update the slider value
   seekBar.value = value;
 
-
   update_seekbar();
 
 });
@@ -223,6 +226,7 @@ $('.volume-slider').on("change mousemove", function () {
 });
 
 function toggle_mute(){
+
 	if(video.muted){
 		//set icon to muted
 		$('#mute-icon').removeClass('fa-volume-up');
@@ -244,7 +248,6 @@ function toggle_play(){
 		$('#play-icon').addClass('fa-pause');
 		$('#play-icon').removeClass('fa-play');
 	}
-
 }
 
 function update_seekbar(){
