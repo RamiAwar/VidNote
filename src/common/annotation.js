@@ -20,6 +20,9 @@ class Annotation{
 		this.thumbnail = thumbnail;
 	}
 
+	static compare(a, b){
+		return a.annotation_time > b.annotation_time;
+	}
 
 
 }
