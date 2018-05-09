@@ -8,7 +8,7 @@
 const {remote, ipcRenderer} = require('electron');
 $ = require('jquery');
 let fs = require('fs');
-var filename = 'test.anot';
+
 
 
 
@@ -20,7 +20,7 @@ var filename = 'test.anot';
 let annotation_time = -1.1;
 let annotation_text = "";
 var imageURL;
-
+var filename = "";
 let not_sent = true;
 
 // Request annotation_time 
@@ -30,6 +30,7 @@ ipcRenderer.send('annotation_time_request', 1);
 ipcRenderer.on('annotation_time_response', (event, obj) => {
 	annotation_time = obj.time;
 	imageURL = obj.thumbnail;
+	filename = obj.path + '.anot';
 
 });
 
@@ -97,25 +98,48 @@ function handle_failure(){
 }
 
 
-//TODO: move this to annotation_manager
+//TODO: remove dependency and move this to annotation_manager
 /**
  * Append currently added annotation to the corresponding .anot file
  * @param  {Annotation} annotation Annotation object
  * @param  {String} filename   .anot file name
  */
 function save_annotation(annotation, filename){
-	console.log('presave');
-	console.log(annotation);
-	var concatenated_annotation = JSON.stringify(annotation) + "\`";
-	fs.appendFile(filename, concatenated_annotation, function (err) {
-	if (err) {
-	  handle_failure();
-	  throw err;
-	}else{
-	  console.log("Success");
-	  ipcRenderer.send('annotation_save_response', annotation);
-	  handle_success();
-	}
 
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+
+	//check file existence
+	fs.stat(filename, function(err, stat) {
+	    
+	    if(err == null) {
+	        console.log('File exists at ', filename);
+	        fs.appendFile(filename, concatenated_annotation, function (err) {
+				if (err) {
+				  handle_failure();
+				  throw err;
+				}else{
+				  //console.log("Success");
+				  ipcRenderer.send('annotation_save_response', annotation);
+				  //handle_success();
+				}
+			});
+
+	    } else if(err.code == 'ENOENT') {
+	        // file does not exist
+	        fs.writeFile(filename, concatenated_annotation, function(err) {
+			    if(err) {
+			        return console.log(err);
+			    }
+
+			    console.log("File saved.");
+			}); 
+	        
+	    } else {
+	        console.log('Some other error writing file: ', err.code);
+	    }
 	});
+
+	
+	
+	
 }

@@ -50,7 +50,8 @@ function open_annotation_window(){
 
 	var obj = {
 		time: video.currentTime,
-		thumbnail: imageURL
+		thumbnail: imageURL,
+		path: manager.filename
 	};
 
 	ipcRenderer.send('open_annotation_window', obj);
@@ -73,7 +74,6 @@ ipcRenderer.on('video:path', (e, a)=>{
 
 	//pass annotation file name
 	manager.filename = video_path + '.anot';
-	console.log(manager.filename)
 	manager.annotation_list = (manager.load_annotations(manager.filename)) || [];
 
 	/**

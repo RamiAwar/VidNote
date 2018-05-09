@@ -15,9 +15,11 @@ var DEV = true;
  * Setup
  */
 
+const electron = require('electron')
 const {app, ipcMain, dialog} = require('electron');
 const _window = require('./src/common/window.js');
 const fs = require('fs');
+
 
 
 /*
@@ -38,7 +40,9 @@ var filename;
 var video_path;
 var video_name;
 
-
+// FFprobe needed to get video dimensions and design main window to fit the video
+var ffprobe = require('ffprobe'),
+    ffprobeStatic = require('ffprobe-static');
 
 let main_window, annotation_window;
 
@@ -77,9 +81,31 @@ app.on('window-all-closed', function () {
 
 
 ipcMain.on('open_main_window', (e, a) =>{
+
     video_name = a.name;
     video_path = a.path;
-    main_window = _window.create_window(950, 600, 950, 600, 950, 600, '../renderer/views/index.html');
+
+    var escreen = electron.screen;
+    var screen = escreen.getPrimaryDisplay();
+
+    var vid_width, vid_height;
+
+    ffprobe(video_path, { path: ffprobeStatic.path }, function (err, info) {
+      
+      if (err) return done(err);
+      console.log(info.streams[0] ,',', screen.size.width);
+      
+      vid_width = info.streams[0].width;
+      vid_height = info.streams[0].height;
+    
+    });
+
+    var width = Math.min(parseInt(screen.size.width), parseInt(vid_width) + 250);
+    var height = Math.min(screen.size.height, vid_height + 200);
+    
+    console.log("exp ", 4, ",", height)
+
+    main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
     main_window.on('closed', ()=>{
       greeter_window.reload();
       greeter_window.show();
@@ -117,7 +143,8 @@ ipcMain.on('annotation_time_request', (e, f) => {
   
   var obj = {
     time:annotation_time, 
-    thumbnail:thumbnail
+    thumbnail:thumbnail,
+    path:video_path
   };
 
   e.sender.send('annotation_time_response', obj);
