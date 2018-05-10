@@ -88,32 +88,38 @@ ipcMain.on('open_main_window', (e, a) =>{
     var escreen = electron.screen;
     var screen = escreen.getPrimaryDisplay();
 
-    var vid_width, vid_height;
+    var vid_width = 0;
+    var vid_height = 0;
 
     ffprobe(video_path, { path: ffprobeStatic.path }, function (err, info) {
       
       if (err) return done(err);
-      console.log(info.streams[0] ,',', screen.size.width);
       
-      vid_width = info.streams[0].width;
-      vid_height = info.streams[0].height;
+      //console.log(info.streams[0].width ,',', screen.size.width);
+      
+      vid_width = parseInt(info.streams[0].width);
+      vid_height = parseInt(info.streams[0].height);
+      console.log('here', vid_height);
+
+      var width = Math.min(parseInt(screen.size.width), parseInt(vid_width) + 255);
+      var height = parseInt(vid_height) + 120;
+      console.log(height);  
+
+      main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
+      main_window.on('closed', ()=>{
+        greeter_window.reload();
+        greeter_window.show();
+      });
+      main_window.once('ready-to-show', function(){
+        var a = {video_name:video_name, video_path:video_path};
+        main_window.webContents.send('video:path', a);
+      });
     
     });
 
-    var width = Math.min(parseInt(screen.size.width), parseInt(vid_width) + 250);
-    var height = Math.min(screen.size.height, vid_height + 200);
-    
-    console.log("exp ", 4, ",", height)
 
-    main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
-    main_window.on('closed', ()=>{
-      greeter_window.reload();
-      greeter_window.show();
-    });
-    main_window.once('ready-to-show', function(){
-      var a = {video_name:video_name, video_path:video_path};
-      main_window.webContents.send('video:path', a);
-    });
+
+    
 
 });
 

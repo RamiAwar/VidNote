@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_manager.html">annotation_manager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.load_annotations">load_annotations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.render_annotation">render_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-index.html">index</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-index.html#~open_annotation_window">open_annotation_window</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BoundingBox.html">BoundingBox</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_manager.html">annotation_manager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.load_annotations">load_annotations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.render_annotation">render_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-index.html">index</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-index.html#~open_annotation_window">open_annotation_window</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li>
 </nav>
 
 <div id="main">
@@ -46,28 +46,33 @@
  * @copyright MIT License
  */
 
-const {ipcRenderer} = require('electron');
+const {remote, ipcRenderer} = require('electron');
 $ = require('jquery');
 let fs = require('fs');
-var filename = 'test.anot';
+
+
+
 
 /**
  * This allows current window access and window management (client side)
  */
-const remote = require('electron').remote;
 
 
 let annotation_time = -1.1;
 let annotation_text = "";
-
+var imageURL;
+var filename = "";
 let not_sent = true;
 
 // Request annotation_time 
 ipcRenderer.send('annotation_time_request', 1);
 
 // Receive annotation_time 
-ipcRenderer.on('annotation_time_response', (event, seek_time)=>{
-	annotation_time = seek_time;
+ipcRenderer.on('annotation_time_response', (event, obj) => {
+	annotation_time = obj.time;
+	imageURL = obj.thumbnail;
+	filename = obj.path + '.anot';
+
 });
 
 /**
@@ -80,12 +85,12 @@ function add_annotation(){
 	annotation_text = $('#annotation-text').val();
 	console.log(annotation_text);
 
+
 	// Make sure user has entered an annotation to save
 	if(annotation_text !== "" &amp;&amp; annotation_time != -1.1 &amp;&amp; not_sent){
-		
-		// Issue event request to save the annotation server side
-		let a = new Annotation(annotation_title, annotation_text, annotation_time);
 
+		// Issue event request to save the annotation server side
+		let a = new Annotation(annotation_title, annotation_text, annotation_time, imageURL);
 		save_annotation(a, filename);
 
 		//TODO: Disable button input
@@ -94,6 +99,8 @@ function add_annotation(){
 
 	}
 }
+
+
 
 /**
  * Disable all inputs while waiting for result of saving annotation.
@@ -128,27 +135,55 @@ function handle_failure(){
 	$('#add-annotation').prop('disabled', false);
 	$('#annotation-title').prop('disabled', false);
 
-
+	console.log("FAILURE&lt; NOT SENT>")
 }
 
+
+//TODO: remove dependency and move this to annotation_manager
 /**
  * Append currently added annotation to the corresponding .anot file
  * @param  {Annotation} annotation Annotation object
  * @param  {String} filename   .anot file name
  */
 function save_annotation(annotation, filename){
-	var concatenated_annotation = JSON.stringify(annotation) + "\`";
-	fs.appendFile(filename, concatenated_annotation, function (err) {
-	if (err) {
-	  handle_failure();
-	  throw err;
-	}else{
-	  console.log("Success");
-	  handle_success();
-	  ipcRenderer.send('annotation_save_response', annotation);
-	}
 
+	var concatenated_annotation = JSON.stringify(annotation) + "\`";
+
+	//check file existence
+	fs.stat(filename, function(err, stat) {
+	    
+	    if(err == null) {
+	        console.log('File exists at ', filename);
+	        fs.appendFile(filename, concatenated_annotation, function (err) {
+				if (err) {
+				  handle_failure();
+				  throw err;
+				}else{
+				  //console.log("Success");
+				  ipcRenderer.send('annotation_save_response', 1);
+				  handle_success();
+				}
+			});
+
+	    } else if(err.code == 'ENOENT') {
+	        // file does not exist
+	        fs.writeFile(filename, concatenated_annotation, function(err) {
+			    if(err) {
+			        return console.log(err);
+			    }
+			    ipcRenderer.send('annotation_save_response', annotation);
+				handle_success();
+			    console.log("File saved.");
+			}); 
+	        
+	    } else {
+	        console.log('Some other error writing file: ', err.code);
+	    }
 	});
+
+	
+	
+	
 }
 </code></pre>
         </article>
@@ -162,7 +197,7 @@ function save_annotation(annotation, filename){
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 20:08:54 GMT+0300 (Middle East Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu May 10 2018 03:37:48 GMT+0300 (Middle East Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

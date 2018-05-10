@@ -37,7 +37,8 @@ exports.create_window = function(w, h, mw, mh, mxw, mxh, file_path){
 		maxHeight: mxh,
 		show: false,
 		frame: false,
-		transparent: true
+		transparent: true,
+		resizable:false
 	})
 
 

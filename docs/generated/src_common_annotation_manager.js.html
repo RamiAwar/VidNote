@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_manager.html">annotation_manager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.load_annotations">load_annotations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.render_annotation">render_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-index.html">index</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-index.html#~open_annotation_window">open_annotation_window</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Annotation.html">Annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="BoundingBox.html">BoundingBox</a></span></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_handler.html">annotation_handler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~add_annotation">add_annotation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~disable_inputs">disable_inputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_failure">handle_failure</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~handle_success">handle_success</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_handler.html#~save_annotation">save_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-annotation_manager.html">annotation_manager</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.load_annotations">load_annotations</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-annotation_manager.html#.render_annotation">render_annotation</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-index.html">index</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-index.html#~open_annotation_window">open_annotation_window</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-main.html">main</a></span></li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-window.html">window</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-window.html#.create_window">create_window</a></span></li>
 </nav>
 
 <div id="main">
@@ -50,11 +50,12 @@
 
 const {ipcRenderer} = require('electron');
 let fs = require('fs');
+const moment = require('moment');
 
 exports.annotation_list = [];
 
 
-var filename = 'test.anot';
+exports.filename = '';
 
 
 
@@ -80,6 +81,13 @@ exports.load_annotations = function(filename){
 		parsed_array.push(JSON.parse(array[i]));	
 	}
 
+
+
+	console.log('presort', parsed_array)
+
+	parsed_array.sort(Annotation.compare)
+
+	console.log('postsort', parsed_array)
 	return parsed_array;
 
 }
@@ -91,58 +99,29 @@ exports.load_annotations = function(filename){
  */
 exports.render_annotation = (item)=>{
 
+		var m = moment().hours(0).minutes(0).seconds(0).add(item.annotation_time, 'seconds');
+		console.log(m);
+		console.log(item.annotation_time)
+		var time_string = m.format("HH:mm:ss");
+		console.log(time_string)
+
 		$("#annotation-list").append(
-			`
-          	&lt;a href="#" class="list-group-item list-group-item-action flex-column align-items-start active" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
-			    &lt;div class="d-flex w-100 justify-content-between" >
-			      &lt;h5 class="mb-1">${item.annotation_title}&lt;/h5>
-			      &lt;small>${item.annotation_time}&lt;/small>
-			    &lt;/div>
-			    &lt;p class="mb-1">${item.annotation_text}&lt;/p>
-			&lt;/a>	
-          	`);
+		
+		`
+		&lt;li class="list-group-item" style="cursor:pointer;" onclick="document.querySelector('video').currentTime = ${item.annotation_time};">
+		    &lt;img class="img-circle media-object pull-left" style="cursor:pointer;" src="${item.thumbnail}" width="32" height="32">
+		    &lt;div style="cursor:pointer;" class="media-body">
+		      &lt;strong style="cursor:pointer;">${item.annotation_title}&lt;/strong>&lt;small style="cursor:pointer;" class="pull-right">${time_string}&lt;/small>
+		      &lt;p style="cursor:pointer;">${item.annotation_text}&lt;/p>
+		    &lt;/div>
+		  &lt;/li>
+        `);
 }
 
-
-
-
-/**
- * annotation_save_request Listener
- */
-ipcRenderer.on('annotation_save_request', (e, annotation)=>{
-
-  // Save annotation in seperate file
-  save_annotation(annotation, filename);
-  
-  // update annotation list on video
-  //TODO: empty annotation list in html
-  //TODO: insert annotation in the list while sorting
-  //TODO: display annotation list in html
-  //TODO: create smart insertion method to insert to html without recreating everything
-  render_annotation(annotation);
-
-});
-
-/**
- * Saves a given annotation to the given filename. If other annotations in the filename are already present, the annotation is simply appended. Sorting on every load is acknowledged, but for simplicity this model is enough. Another storage model might be more fitting in case the uses of this application evolve into something more complex.
- * @param  {Annotation} annotation
- * @param  {String} filename  
- * @return {void}       
- */
-function save_annotation(annotation, filename){
-
-	var concatenated_annotation = JSON.stringify(annotation) + "\`";
-
-	fs.appendFile(filename, concatenated_annotation, function (err) {
-
-		if(err){
-			//TODO: display error on failure of writing new annotation to file
-		}else{
-			//TODO: display success toast
-		}
-
-	});
+exports.clear_annotation_list = function(){
+	$("#annotation-list").empty();
 }
+
 </code></pre>
         </article>
     </section>
@@ -155,7 +134,7 @@ function save_annotation(annotation, filename){
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Apr 08 2018 20:08:54 GMT+0300 (Middle East Daylight Time) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu May 10 2018 03:37:48 GMT+0300 (Middle East Daylight Time) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

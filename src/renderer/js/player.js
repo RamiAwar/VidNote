@@ -33,7 +33,7 @@ exports.initialize_canvas_video = function(window_size){
 	// set canvas size = video size when known
 	video.addEventListener('loadedmetadata', function() {
 
-	  canvas.width = window_size[0] - 250;
+	  canvas.width = window_size[0] - 255;
 	  canvas.height = (window_size[0] - 250)/(video.videoWidth/video.videoHeight);
 
 	});
@@ -139,8 +139,14 @@ function updateCanvas(){
 }
 
 //Video player controls
-$(document).keypress('space', function(){
-	play_button.click();
+$(document).keypress(function (e) {
+  
+  if (e.key === ' ' || e.key === 'Spacebar') {
+    // ' ' is standard, 'Spacebar' was used by IE9 and Firefox < 37
+    e.preventDefault()
+    play_button.click();
+  }
+	
 })
 
 

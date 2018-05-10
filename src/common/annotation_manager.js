@@ -77,3 +77,7 @@ exports.render_annotation = (item)=>{
         `);
 }
 
+exports.clear_annotation_list = function(){
+	$("#annotation-list").empty();
+}
+

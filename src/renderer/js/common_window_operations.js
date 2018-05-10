@@ -11,3 +11,9 @@ $('#minimize_window_button').on('click', ()=>{
 	var current_window = remote.getCurrentWindow();
 	current_window.minimize(); 
 });
+
+
+$('#finished-button').on('click', ()=>{
+	var current_window = remote.getCurrentWindow();
+	current_window.close(); 
+});

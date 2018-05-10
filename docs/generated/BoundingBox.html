@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>window - Documentation</title>
+    <title>BoundingBox - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">window</h1>
+    <h1 class="page-title">BoundingBox</h1>
     
 
     
@@ -41,8 +41,9 @@
 
 <header>
     
-        
-            
+        <h2>
+        BoundingBox
+        </h2>
         
     
 </header>
@@ -51,193 +52,18 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Module for creating new browser windows and loading html files assigned to them.</p></div>
-        
-
-        
-            
-<div class="section-method">
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li>Rami Awar</li>
-        </ul>
-    </dd>
-    
-
-    
-    <dt class="tag-copyright">Copyright:</dt>
-    <dd class="tag-copyright"><ul class="dummy"><li>MIT License</li></ul></dd>
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_common_window.js.html">src/common/window.js</a>, <a href="src_common_window.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-        <h3 class="subsection-title">Members</h3>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id=".window"><span class="type-signature">(static) </span>window<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    <p>BrowserWindow instance</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_common_window.js.html">src/common/window.js</a>, <a href="src_common_window.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-</div>
-
-        
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
 <div class="section-method">
 
     
 
-    <h4 class="name" id=".create_window"><span class="type-signature">(static) </span>create_window<span class="signature">(w, h, mw, mh, mxw, mxh)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="BoundingBox"><span class="type-signature"></span>new BoundingBox<span class="signature">(startx, starty, endx, endy)</span><span class="type-signature"> &rarr; {void}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Creates a new browser window.</p>
+    <p>Annotation constructor</p>
 </div>
 
 
@@ -273,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_common_window.js.html">src/common/window.js</a>, <a href="src_common_window.js.html#line26">line 26</a>
+        <a href="src_common_bounding_box.js.html">src/common/bounding_box.js</a>, <a href="src_common_bounding_box.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -317,7 +143,7 @@
 
         <tr>
             
-                <td class="name"><code>w</code></td>
+                <td class="name"><code>startx</code></td>
             
 
             <td class="type">
@@ -334,7 +160,7 @@
             
 
             <td class="description last">
-                <p>Window starting width</p>
+                <p>Left-most point.</p>
                 
             </td>
         </tr>
@@ -343,7 +169,7 @@
 
         <tr>
             
-                <td class="name"><code>h</code></td>
+                <td class="name"><code>starty</code></td>
             
 
             <td class="type">
@@ -360,7 +186,7 @@
             
 
             <td class="description last">
-                <p>Window starting height</p>
+                <p>Top-most point.</p>
                 
             </td>
         </tr>
@@ -369,7 +195,7 @@
 
         <tr>
             
-                <td class="name"><code>mw</code></td>
+                <td class="name"><code>endx</code></td>
             
 
             <td class="type">
@@ -386,7 +212,7 @@
             
 
             <td class="description last">
-                <p>Window minimum width</p>
+                <p>Right-most point.</p>
                 
             </td>
         </tr>
@@ -395,7 +221,7 @@
 
         <tr>
             
-                <td class="name"><code>mh</code></td>
+                <td class="name"><code>endy</code></td>
             
 
             <td class="type">
@@ -412,59 +238,7 @@
             
 
             <td class="description last">
-                <p>Window minimum height</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mxw</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Window maximum width</p>
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>mxh</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>Number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Window maximum height</p>
+                <p>Bottom-most point.</p>
                 
             </td>
         </tr>
@@ -486,10 +260,45 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>void</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
 
 
 </div>
-        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
     
 
     

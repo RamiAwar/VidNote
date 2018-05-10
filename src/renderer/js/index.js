@@ -82,6 +82,7 @@ ipcRenderer.on('video:path', (e, a)=>{
 	 * Append elements to visual annotation list if nonempty
 	 */
 	if(manager.annotation_list.length){
+		$('#annotation-list').empty();
 		manager.annotation_list.forEach(manager.render_annotation);
 	}
 
@@ -93,8 +94,12 @@ ipcRenderer.on('annotation_save_response', (event, arg) => {
     console.log("Saved annot");
     // Allow submission of new annotations
     if(arg) {
+    	console.log("HERE");
     	$("#add-annotation-button").prop('disabled', false);
-    	manager.render_annotation(arg);
+    	manager.annotation_list = (manager.load_annotations(manager.filename)) || [];
+    	manager.clear_annotation_list();
+		manager.annotation_list.forEach(manager.render_annotation);
+		
     }
 
 });

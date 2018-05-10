@@ -44,6 +44,13 @@ h1{
 	border-left:0.5px solid #eee;
 }
 
+.empty{
+	margin:50px 70px;
+	display:block;
+	position:absolute;
+	font-size:1.2em !important;
+	font-style: italic !important;
+}
 
 .title{
 	-webkit-app-region: drag;

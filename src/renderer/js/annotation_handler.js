@@ -94,7 +94,7 @@ function handle_failure(){
 	$('#add-annotation').prop('disabled', false);
 	$('#annotation-title').prop('disabled', false);
 
-
+	console.log("FAILURE< NOT SENT>")
 }
 
 
@@ -119,8 +119,8 @@ function save_annotation(annotation, filename){
 				  throw err;
 				}else{
 				  //console.log("Success");
-				  ipcRenderer.send('annotation_save_response', annotation);
-				  //handle_success();
+				  ipcRenderer.send('annotation_save_response', 1);
+				  handle_success();
 				}
 			});
 
@@ -130,7 +130,8 @@ function save_annotation(annotation, filename){
 			    if(err) {
 			        return console.log(err);
 			    }
-
+			    ipcRenderer.send('annotation_save_response', annotation);
+				handle_success();
 			    console.log("File saved.");
 			}); 
 	        
