@@ -1,6 +1,10 @@
 # VidNote
 A video annotation cross-platform application. Annotations can be audio, text, or even video annotations. Work in progress.
 
+![Welcome Window](https://github.com/RamiAwar/VidNote/blob/master/docs/screenshots/vidnote0.5-01.JPG)
+
+![Annotation Window](https://github.com/RamiAwar/VidNote/blob/master/docs/screenshots/vidnote0.5-02.jpg)
+
 ## Usage Instructions
 
 Since the project is still a work in progress, it hasn't been packaged for easy installation. Trying out the unfinished project requires building it yourself from the source files. 
