@@ -99,10 +99,13 @@ ipcMain.on('open_main_window', (e, a) =>{
       
       vid_width = parseInt(info.streams[0].width);
       vid_height = parseInt(info.streams[0].height);
+      var aspect_ratio = vid_width/vid_height;
       console.log('here', vid_height);
 
-      var width = Math.min(parseInt(screen.size.width), parseInt(vid_width) + 255);
-      var height = parseInt(vid_height) + 120;
+      // var width = Math.min(parseInt(screen.size.width/3), parseInt(vid_width) + 255);
+
+      var height = Math.min(parseInt(vid_height), parseInt(screen.size.height));
+      var width = parseInt(height*aspect_ratio);
       console.log(height);  
 
       main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
