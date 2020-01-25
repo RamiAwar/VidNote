@@ -16,6 +16,7 @@ const manager = require('../../common/annotation_manager.js');
 
 var canvas = document.getElementById("canvas");
 var video = document.getElementById("video");
+
 var video_name;
 var video_path;
 

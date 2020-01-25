@@ -18,6 +18,9 @@ $('#input_file').change(function(){
 
 	// Destructuring object assignment without declaration syntax
 	({name, path} = $('#input_file')[0].files[0]);
+
+	// TODO: Show video chosen to user
+	// ???????????????
 	
 
 	TweenMax.to($('#next'), 1, {opacity:1, ease:Linear.easeNone});
