@@ -39,7 +39,7 @@ And then the documentation generator can be run using `gulp doc`.
 Documentation can be generated using `gulp doc`. Compiled using jsdoc3.
 
 #### Running the app
-After installing all the required npm packages, the app can be run using `npm start` from the home directory (VidNote/). If you encounter any errors that you couldn't solve yourself, contact me at rami.awar.ra@gmail.com. I most probably encountered the same errors at some point and might be able to help since I've tested the project and the installation process on multiple windows, linux, and osx machines.
+After installing all the required npm packages using `npm install`, the app can be run using `npm start` from the home directory (VidNote/). If you encounter any errors that you couldn't solve yourself, contact me at rami.awar.ra@gmail.com. I most probably encountered the same errors at some point and might be able to help since I've tested the project and the installation process on multiple windows, linux, and osx machines.
 
 
 
