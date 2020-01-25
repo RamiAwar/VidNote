@@ -32,9 +32,13 @@ exports.initialize_canvas_video = function(window_size){
 
 	// set canvas size = video size when known
 	video.addEventListener('loadedmetadata', function() {
-
+    var aspect_ratio = video.videoWidth/video.videoHeight;
 	  canvas.width = window_size[0] - 255;
-	  canvas.height = (window_size[0] - 250)/(video.videoWidth/video.videoHeight);
+	  canvas.height = canvas.width/aspect_ratio;
+    if(canvas.height > window_size[1] - 110){
+      canvas.height = window_size[1] - 110;
+      canvas.width = canvas.height*aspect_ratio;
+    }
 
 	});
 
@@ -123,8 +127,9 @@ function updateCanvas(){
     if(video_container !== undefined && video_container.ready){ 
         // find the top left of the video on the canvas
         var scale = 3;
-        var vidH = video_container.video.videoHeight;
-        var vidW = video_container.video.videoWidth;
+        var aspect_ratio = (video_container.video.videoWidth/video_container.video.videoHeight).toPrecision(3);
+        var vidH = canvas.height - 100;
+        var vidW = parseInt(vidH*aspect_ratio);
         var top = canvas.height / 2 - (vidH /2 ) * scale;
         var left = canvas.width / 2 - (vidW /2 ) * scale;
         // now just draw the video the correct size

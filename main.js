@@ -104,9 +104,18 @@ ipcMain.on('open_main_window', (e, a) =>{
 
       // var width = Math.min(parseInt(screen.size.width/3), parseInt(vid_width) + 255);
 
-      var height = Math.min(parseInt(vid_height), parseInt(screen.size.height) - 300);
-      var width = parseInt(height*aspect_ratio + 255);
-      console.log(height);  
+      // var height = Math.min(parseInt(vid_height), parseInt(screen.size.height) - 300);
+      // var width = parseInt(height*aspect_ratio + 255);
+      // console.log(height);  
+
+      var aspect_ratio = (vid_width/vid_height).toPrecision(3);
+      width = vid_width + 255;
+      height = width/aspect_ratio;
+      if(height > screen.size.height - 300){
+        height = screen.size.height - 300;
+        width = parseInt(height*aspect_ratio) + 110 ;
+      }
+
 
       main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
       main_window.on('closed', ()=>{

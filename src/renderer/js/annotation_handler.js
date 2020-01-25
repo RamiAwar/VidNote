@@ -44,6 +44,10 @@ function add_annotation(){
 	annotation_text = $('#annotation-text').val();
 	console.log(annotation_text);
 
+	if(annotation_title == "" | annotation_text == ""){
+		alert("Please fill all fields to save annotation.");
+		return;
+	}
 
 	// Make sure user has entered an annotation to save
 	if(annotation_text !== "" && annotation_time != -1.1 && not_sent){
@@ -58,9 +62,7 @@ function add_annotation(){
 
 	}
 
-	if(annotation_title == "" | annotation_text == ""){
-		alert("Please fill all fields to save annotation.");
-	}
+	
 }
 
 
