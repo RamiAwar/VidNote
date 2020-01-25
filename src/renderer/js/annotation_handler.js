@@ -57,6 +57,10 @@ function add_annotation(){
 		disable_inputs();
 
 	}
+
+	if(annotation_title == "" | annotation_text == ""){
+		alert("Please fill all fields to save annotation.");
+	}
 }
 
 

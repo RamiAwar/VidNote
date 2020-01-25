@@ -104,8 +104,8 @@ ipcMain.on('open_main_window', (e, a) =>{
 
       // var width = Math.min(parseInt(screen.size.width/3), parseInt(vid_width) + 255);
 
-      var height = Math.min(parseInt(vid_height), parseInt(screen.size.height));
-      var width = parseInt(height*aspect_ratio);
+      var height = Math.min(parseInt(vid_height), parseInt(screen.size.height) - 300);
+      var width = parseInt(height*aspect_ratio + 255);
       console.log(height);  
 
       main_window = _window.create_window(width, height, width, height, width, height, '../renderer/views/index.html');
@@ -132,14 +132,13 @@ ipcMain.on('open_main_window', (e, a) =>{
  */
 ipcMain.on('open_annotation_window', (e, obj) =>{
 
-    annotation_window = _window.create_window(500, 300, 500, 300, 500, 500, '../renderer/views/annotation_creator.html');
+    annotation_window = _window.create_window(500, 250, 500, 300, 500, 500, '../renderer/views/annotation_creator.html');
     annotation_time = obj.time;
     thumbnail = obj.thumbnail;
 
     // Catch close event of annotation window to allow new annotations to be opened from mainwindow
     annotation_window.on('close', function() { //   
         main_window.webContents.send('annotation_window_closed', 1);
-
     });
 });
 

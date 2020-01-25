@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/RamiAwar/VidNote#readme",
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "ffprobe": "^1.1.0",
     "ffprobe-static": "^2.0.0",
     "gsap": "^1.20.4",
