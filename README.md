@@ -5,6 +5,10 @@ A video annotation cross-platform application. Annotations can be audio, text, o
 
 ![Annotation Window](https://github.com/RamiAwar/VidNote/blob/master/docs/screenshots/vidnote0.5-02.jpg)
 
+
+## How it works
+First, you import a video by choosing a file. After confirming the video choice, a new window appears, enclosing a video player with volume and seeking features, and basic controls. On the right, you have the annotations list. To add a new annotation at a specific frame of the video, press the add annotation button when the video is at that specific moment. You can do that while the video is playing or paused for more accuracy. When a new annotation is added, a `.anot` file gets created in the same directory as the video that was imported, allowing for importing these annotations again in the future. A thumbnail of the frame is also saved in the `.anot` file, along with other needed metadata. To view the annotations at a later time, simply load the video back into the application and the `.anot` file will automatically be imported if it exists in the same directory. 
+
 ## Usage Instructions
 
 Since the project is still a work in progress, it hasn't been packaged for easy installation. Trying out the unfinished project requires building it yourself from the source files. 
