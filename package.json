@@ -26,7 +26,7 @@
     "mousetrap": "^1.6.1"
   },
   "devDependencies": {
-    "electron": "^1.8.4",
+    "electron": "^15.5.5",
     "electron-reload": "^1.2.2",
     "gulp": "^3.9.1",
     "gulp-jsdoc3": "^2.0.0",
